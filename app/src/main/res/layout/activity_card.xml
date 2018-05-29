@@ -45,7 +45,7 @@
                 android:layout_height="43dp"
                 android:layout_alignParentEnd="true"
                 android:background="@drawable/accept_button"
-                android:text="@string/reject"
+                android:text="@string/block"
                 android:textColor="@color/black"
                 android:textAllCaps="false"
                 android:textStyle="bold" />
@@ -56,8 +56,8 @@
                 android:layout_height="43dp"
                 android:layout_toLeftOf="@+id/accept_button"
                 android:background="@android:color/transparent"
-                android:text="@string/accept"
-                android:textColor="@color/black"
+                android:text="@string/delete"
+                android:textColor="@color/thirdColor"
                 android:textAllCaps="false"
                 android:textStyle="bold" />
         </RelativeLayout>
