@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.nasri.gp.Card">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/payment_card"
+        android:orientation="vertical"
+        android:paddingTop="16dp"
+        android:paddingLeft="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mohammed Ali"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0998877781"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wants to reserve your field from 04:00pm to 06:00pm"
+            android:textColor="@color/black" />
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/accept_button"
+                android:layout_width="70dp"
+                android:layout_height="43dp"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/accept_button"
+                android:text="@string/reject"
+                android:textColor="@color/black"
+                android:textAllCaps="false"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/diclin_button"
+                android:layout_width="70dp"
+                android:layout_height="43dp"
+                android:layout_toLeftOf="@+id/accept_button"
+                android:background="@android:color/transparent"
+                android:text="@string/accept"
+                android:textColor="@color/black"
+                android:textAllCaps="false"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

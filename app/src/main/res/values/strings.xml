@@ -16,6 +16,8 @@
     <string name="pay">Payment</string>
     <string name="pin">Card Number</string>
     <string name="sim">Zain</string>
+    <string name="accept"><u>accept</u></string>
+    <string name="reject"><u>reject</u></string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>

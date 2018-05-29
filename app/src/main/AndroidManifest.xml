@@ -22,13 +22,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".Field" />
-        <activity android:name=".Third"></activity>
-        <activity android:name=".Field"></activity>
+        <activity android:name=".Third" />
+        <activity android:name=".Field" />
         <activity
             android:name=".reserveRegester"
             android:label="@string/title_activity_reserve_regester" />
         <activity android:name=".payment" />
-        <activity android:name=".Blocking_user"></activity>
+        <activity android:name=".Blocking_user" />
+        <activity android:name=".CardList" />
+        <activity android:name=".Card"></activity>
     </application>
 
 </manifest>
