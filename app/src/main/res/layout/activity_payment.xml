@@ -29,20 +29,43 @@
             android:orientation="vertical"
             android:background="@drawable/payment_card">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/baseline_phone_black_36" />
+
+
             <EditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="16dp"
-                android:drawableStart="@drawable/baseline_phone_black_36"
                 android:ems="10"
                 android:hint="@string/pin"
                 android:imeActionId="6"
+                android:layout_marginTop="8dp"
                 android:imeActionLabel="@string/action_sign_in_short"
                 android:inputType="number"
                 android:maxLines="1"
                 android:singleLine="true" />
 
+        </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/baseline_phone_black_36" />
 
 
             <Spinner
@@ -51,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:prompt="@string/sim"/>
-
+        </LinearLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">

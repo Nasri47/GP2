@@ -20,6 +20,7 @@
     <string name="reject">Reject</string>
     <string name="delete">Delete</string>
     <string name="block">Block</string>
+    <string name="block_user">Blocking a user</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>

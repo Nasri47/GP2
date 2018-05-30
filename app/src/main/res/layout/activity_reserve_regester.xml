@@ -45,17 +45,31 @@
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp">
 
-                <AutoCompleteTextView
-                    android:id="@+id/email"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/user_name"
-                    android:inputType="textEmailAddress"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:drawableStart="@drawable/sharp_account_circle_black_36"
-                    android:ems="10"
-                    android:drawablePadding="16dp"/>
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/sharp_account_circle_black_36" />
+
+                    <AutoCompleteTextView
+                        android:id="@+id/email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/user_name"
+                        android:inputType="textEmailAddress"
+                        android:backgroundTint="@color/white"
+                        android:layout_marginTop="8dp"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:ems="10"
+                        android:drawablePadding="16dp"/>
+                </LinearLayout>
+
+
 
             </android.support.design.widget.TextInputLayout>
 
@@ -65,19 +79,33 @@
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp">
 
-                <EditText
-                    android:id="@+id/password"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:imeActionId="6"
-                    android:imeActionLabel="@string/action_sign_in_short"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:hint="@string/phone_number"
-                    android:singleLine="true"
-                    android:drawableStart="@drawable/baseline_phone_black_36"
-                    android:ems="10"
-                    android:drawablePadding="16dp"/>
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/baseline_phone_black_36" />
+
+                    <EditText
+                        android:id="@+id/password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeActionId="6"
+                        android:imeActionLabel="@string/action_sign_in_short"
+                        android:inputType="number"
+                        android:backgroundTint="@color/white"
+                        android:layout_marginTop="8dp"
+                        android:maxLines="1"
+                        android:hint="@string/phone_number"
+                        android:singleLine="true"
+                        android:ems="10"
+                        android:drawablePadding="16dp"/>
+                </LinearLayout>
+
+
 
             </android.support.design.widget.TextInputLayout>
 
@@ -87,7 +115,7 @@
                 <Button
                     android:id="@+id/email_sign_in_button"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="43dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginRight="16dp"
                     android:layout_marginBottom="16dp"
