@@ -65,7 +65,7 @@
                 <Button
                     android:id="@+id/block_button"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="43dp"
                     android:text="Block"
                     android:textStyle="bold"
                     android:background="@drawable/button3"

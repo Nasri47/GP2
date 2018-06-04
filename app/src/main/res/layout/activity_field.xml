@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Field">
 
     <LinearLayout
@@ -108,55 +109,86 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="16dp"
             android:layout_weight="0.5"
+            android:layout_gravity="center"
             android:orientation="horizontal">
 
             <ImageButton
+                android:id="@+id/left_button"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="4dp"
-                android:layout_weight="1"
+                android:layout_weight="0.1"
                 android:background="@android:color/transparent"
                 android:src="@drawable/baseline_arrow_left_black_36" />
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="8"
-                android:orientation="vertical">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2"
-                    android:gravity="center"
-                    android:text="Sunday"
-                    android:textColor="@android:color/black" />
+                <include layout="@layout/activity_dates_and_history" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="4/15"
-                    android:textColor="@android:color/black" />
             </LinearLayout>
 
             <ImageButton
+                android:id="@+id/right_button"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="4dp"
-                android:layout_weight="1"
+                android:layout_weight="0.1"
                 android:background="@android:color/transparent"
                 android:src="@drawable/baseline_arrow_right_black_36" />
         </LinearLayout>
 
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_weight="0.5"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/left_button_period"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="4dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="8dp"
+            android:onClick="onLeftClicked"
+            android:background="@color/colorPrimary"
+            android:src="@drawable/baseline_arrow_left_black_36" />
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1">
 
+            <include layout="@layout/activity_time_recycle_view" />
         </LinearLayout>
+            <ImageButton
+                android:id="@+id/right_button_period"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="4dp"
+                android:layout_weight="1"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="8dp"
+                android:onClick="onRightClicked"
+                android:background="@color/colorPrimary"
+                android:src="@drawable/baseline_arrow_right_black_36" />
+
+
+
+    </LinearLayout>
+
     </LinearLayout>
 </ScrollView>
