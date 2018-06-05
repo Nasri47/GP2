@@ -129,7 +129,7 @@
                 android:layout_gravity="center"
                 android:orientation="horizontal">
 
-                <include layout="@layout/activity_dates_and_history" />
+                <include layout="@layout/activity_dates_list" />
 
             </LinearLayout>
 

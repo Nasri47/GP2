@@ -104,22 +104,22 @@ public class Field extends AppCompatActivity {
 
     private void getPeriod(){
 
-        periodList.add(new PeriodTimes("One", "lutti", 1)) ;
-        periodList.add(new PeriodTimes("One", "lutti",2));
-        periodList.add(new PeriodTimes("One", "lutti", 3));
-        periodList.add(new PeriodTimes("One", "lutti", 4));
-        periodList.add(new PeriodTimes("One", "lutti", 1)) ;
-        periodList.add(new PeriodTimes("One", "lutti",2));
-        periodList.add(new PeriodTimes("One", "lutti", 3));
-        periodList.add(new PeriodTimes("One", "lutti", 4));
-        periodList.add(new PeriodTimes("One", "lutti", 1)) ;
-        periodList.add(new PeriodTimes("One", "lutti",2));
-        periodList.add(new PeriodTimes("One", "lutti", 3));
-        periodList.add(new PeriodTimes("One", "lutti", 4));
-        periodList.add(new PeriodTimes("One", "lutti", 1)) ;
-        periodList.add(new PeriodTimes("One", "lutti",2));
-        periodList.add(new PeriodTimes("One", "lutti", 3));
-        periodList.add(new PeriodTimes("One", "lutti", 4));
+        periodList.add(new PeriodTimes("04:00 04:30", "lutti", 1)) ;
+        periodList.add(new PeriodTimes("04:30 05:00", "lutti",2));
+        periodList.add(new PeriodTimes("05:00 05:30", "lutti", 3));
+        periodList.add(new PeriodTimes("05:30 06:00", "lutti", 4));
+        periodList.add(new PeriodTimes("06:00 06:30", "lutti", 1)) ;
+        periodList.add(new PeriodTimes("06:30 07:00", "lutti",2));
+        periodList.add(new PeriodTimes("07:00 07:30", "lutti", 3));
+        periodList.add(new PeriodTimes("07:30 08:00", "lutti", 4));
+        periodList.add(new PeriodTimes("08:00 08:30", "lutti", 1)) ;
+        periodList.add(new PeriodTimes("08:30 09:00", "lutti",2));
+        periodList.add(new PeriodTimes("09:00 09:30", "lutti", 3));
+        periodList.add(new PeriodTimes("09:30 10:00", "lutti", 4));
+        periodList.add(new PeriodTimes("10:00 10:30", "lutti", 1)) ;
+        periodList.add(new PeriodTimes("10:30 11:00", "lutti",2));
+        periodList.add(new PeriodTimes("11:00 11:30", "lutti", 3));
+        periodList.add(new PeriodTimes("11:30 12:00", "lutti", 4));
 
         timetableAdabter.notifyDataSetChanged();
     }
