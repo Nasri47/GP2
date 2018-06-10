@@ -2,12 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true"
     tools:context=".Field">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <ImageView
@@ -17,101 +17,73 @@
             android:scaleType="centerCrop"
             android:src="@mipmap/stadium" />
 
-        <LinearLayout
+        <GridLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+            android:columnCount="2">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="4dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:layout_weight="1"
-                    android:drawablePadding="8dp"
-                    android:drawableStart="@drawable/sharp_account_circle_black_24"
-                    android:gravity="center_vertical"
-                    android:text="name of the Field"
-                    android:textColor="@android:color/black" />
+            <TextView
+                android:layout_columnWeight="1"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="8dp"
+                android:layout_rowWeight="1"
+                android:drawablePadding="8dp"
+                android:drawableStart="@drawable/sharp_account_circle_black_24"
+                android:text="name of the Field"
+                android:textColor="@android:color/black" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:layout_weight="1"
-                    android:drawablePadding="8dp"
-                    android:drawableStart="@drawable/baseline_watch_black_24"
-                    android:gravity="center_vertical"
-                    android:text="200 SDG per hour"
-                    android:textColor="@android:color/black" />
+            <TextView
+                android:layout_columnWeight="1"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="8dp"
+                android:layout_rowWeight="1"
+                android:drawablePadding="8dp"
+                android:drawableStart="@drawable/sharp_location_on_black_24"
+                android:text="Location of The Field"
+                android:textColor="@android:color/black" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:layout_weight="1"
-                    android:drawablePadding="8dp"
-                    android:drawableStart="@drawable/sharp_location_on_black_24"
-                    android:gravity="center_vertical"
-                    android:text="Location of The Field"
-                    android:textColor="@android:color/black" />
+            <TextView
+                android:layout_columnWeight="1"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="8dp"
+                android:layout_rowWeight="1"
+                android:drawablePadding="8dp"
+                android:drawableStart="@drawable/baseline_watch_black_24"
+                android:text="200 SDG per hour"
+                android:textColor="@android:color/black" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:layout_weight="1"
-                    android:drawablePadding="8dp"
-                    android:drawableStart="@drawable/baseline_phone_android_black_24"
-                    android:gravity="center_vertical"
-                    android:text="Phone"
-                    android:textColor="@android:color/black" />
+            <TextView
+                android:layout_columnWeight="1"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="8dp"
+                android:layout_rowWeight="1"
+                android:drawablePadding="8dp"
+                android:drawableStart="@drawable/baseline_phone_android_black_24"
+                android:text="Phone"
+                android:textColor="@android:color/black" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:layout_weight="1"
-                    android:drawablePadding="8dp"
-                    android:drawableStart="@drawable/round_check_circle_black_24"
-                    android:gravity="center_vertical"
-                    android:text="Available"
-                    android:textColor="@android:color/black"
-                    android:textSize="24sp" />
-            </LinearLayout>
+            <TextView
+                android:layout_columnSpan="2"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="8dp"
+                android:layout_rowWeight="1"
+                android:drawablePadding="8dp"
+                android:drawableStart="@drawable/round_check_circle_black_24"
+                android:text="Available"
+                android:textColor="@android:color/black"
+                android:textSize="24sp" />
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="4dp"
-                android:layout_weight="1"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/stadium" />
-        </LinearLayout>
+        </GridLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_gravity="center"
             android:layout_marginTop="16dp"
             android:layout_weight="0.5"
-            android:layout_gravity="center"
             android:orientation="horizontal">
 
             <ImageButton
@@ -144,51 +116,48 @@
         </LinearLayout>
 
 
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_weight="0.5"
-        android:orientation="horizontal">
-
-        <ImageButton
-            android:id="@+id/left_button_period"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginRight="4dp"
-            android:layout_weight="1"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="8dp"
-            android:onClick="onLeftClicked"
-            android:background="@color/colorPrimary"
-            android:src="@drawable/baseline_arrow_left_black_36" />
-
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_weight="0.5"
+            android:orientation="horizontal">
 
-            <include layout="@layout/activity_time_recycle_view" />
-        </LinearLayout>
+            <ImageButton
+                android:id="@+id/left_button_period"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:onClick="onLeftClicked"
+                android:src="@drawable/baseline_arrow_left_black_36" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <include layout="@layout/activity_time_recycle_view" />
+            </LinearLayout>
+
             <ImageButton
                 android:id="@+id/right_button_period"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="4dp"
-                android:layout_weight="1"
                 android:layout_marginBottom="16dp"
+                android:layout_marginLeft="4dp"
                 android:layout_marginTop="8dp"
-                android:onClick="onRightClicked"
+                android:layout_weight="1"
                 android:background="@color/colorPrimary"
+                android:onClick="onRightClicked"
                 android:src="@drawable/baseline_arrow_right_black_36" />
-
-
-
-    </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>
