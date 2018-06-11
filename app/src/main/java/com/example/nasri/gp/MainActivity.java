@@ -12,11 +12,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-
     public void onLogin(View view){
-        Intent log = new Intent(this , Field.class) ;
+        Intent log = new Intent(this , Reservation.class) ;
         startActivity(log);
     }
 
 }
-
