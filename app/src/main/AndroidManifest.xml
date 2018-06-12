@@ -14,9 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Complaints"></activity>
-        <activity android:name=".Reservation">
-        </activity>
+        <activity android:name=".Complaints" />
+        <activity android:name=".Reservation" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,6 +31,9 @@
         <activity android:name=".Blocking_user" />
         <activity android:name=".CardList" />
         <activity android:name=".Card" />
+        <activity android:name=".Main2Activity">
+
+        </activity>
     </application>
 
 </manifest>

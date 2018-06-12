@@ -13,8 +13,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
     public void onLogin(View view){
-        Intent log = new Intent(this , Reservation.class) ;
+        Intent log = new Intent(this , Main2Activity.class) ;
         startActivity(log);
     }
-
 }
