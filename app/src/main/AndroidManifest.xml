@@ -19,21 +19,21 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity android:name=".Field" />
         <activity android:name=".Third" />
+        <activity android:name=".RegisterField" />
         <activity
             android:name=".reserveRegester"
             android:label="@string/title_activity_reserve_regester" />
         <activity android:name=".payment" />
         <activity android:name=".Blocking_user" />
-        <activity android:name=".CardList" />
-        <activity android:name=".Card" />
-        <activity android:name=".Main2Activity">
-
-        </activity>
+        <activity android:name=".Main2Activity" />
+        <activity android:name=".FieldsList" />
     </application>
 
 </manifest>

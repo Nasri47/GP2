@@ -38,8 +38,8 @@ public class TimetableAdabter extends RecyclerView.Adapter<TimetableAdabter.MyVi
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        PeriodTimes movie = periodTimes.get(position);
-        holder.title.setText(movie.getStartTime());
+        PeriodTimes period = periodTimes.get(position);
+        holder.title.setText(period.getStartTime());
     }
 
     @Override

@@ -124,6 +124,10 @@
                 android:id="@+id/left_button_period"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:background="@color/colorPrimary"
                 android:onClick="onLeftClicked"
                 android:src="@drawable/baseline_arrow_left_black_36" />
@@ -142,6 +146,10 @@
                 android:layout_height="match_parent"
                 android:background="@color/colorPrimary"
                 android:onClick="onRightClicked"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:src="@drawable/baseline_arrow_right_black_36" />
         </LinearLayout>
 
