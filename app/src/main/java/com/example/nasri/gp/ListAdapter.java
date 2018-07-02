@@ -1,6 +1,7 @@
 package com.example.nasri.gp;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,8 @@ public class ListAdapter extends ArrayAdapter<ListDetails> {
         super(context, 0, listDetails);
     }
 
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
+
         View listItemView = convertView;
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
@@ -43,6 +45,7 @@ public class ListAdapter extends ArrayAdapter<ListDetails> {
                 break;
             case 2:
                 thirdText.setText("Delete");
+                thirdText.setTextColor(Color.RED);
                 firstText.setVisibility(View.GONE);
                 secondText.setVisibility(View.GONE);
                 break;

@@ -9,7 +9,7 @@ public class Complaints extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.category);
-        getSupportFragmentManager().beginTransaction().replace(R.id.container,new ComplaintsFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, new ComplaintsFragment()).commit();
 
     }
 }

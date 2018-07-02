@@ -1,7 +1,9 @@
 package com.example.nasri.gp;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FieldFragment extends Fragment{
+    private ViewPager mSlideViewPager;
+    private SliderAdapter sliderAdapter;
+
     private List<PeriodTimes> periodList = new ArrayList<>();
     private List<String> daysList = new ArrayList<>();
     private List<String> historyList = new ArrayList<>();
@@ -35,7 +40,21 @@ public class FieldFragment extends Fragment{
         periodRecycler.setLayoutManager(periodLayout);
         periodRecycler.setItemAnimator(new DefaultItemAnimator());
         periodRecycler.setAdapter(timetableAdabter);
-
+        /*
+         *
+         *
+         *
+         * */
+        mSlideViewPager = (ViewPager) rootView.findViewById(R.id.slideviewpager);
+        sliderAdapter = new SliderAdapter(getContext());
+        mSlideViewPager.setAdapter(sliderAdapter);
+        TabLayout tabLayout = (TabLayout) rootView.findViewById(R.id.tab_layout);
+        tabLayout.setupWithViewPager(mSlideViewPager, true);
+        /*
+         *
+         *
+         *
+         *  */
         //Date and history
         daysFlipper = (ViewFlipper)rootView.findViewById(R.id.days_flipper);
         daysList.add("SUN") ;
@@ -52,8 +71,6 @@ public class FieldFragment extends Fragment{
         historyList.add("8/6") ;
         historyList.add("9/6") ;
         historyList.add("10/6") ;
-
-
 
         for(int i=0;i<daysList.size();i++)
         {
@@ -86,12 +103,12 @@ public class FieldFragment extends Fragment{
                 daysFlipper.showNext();
             }
         });
-
-
         getPeriod();
         getDate() ;
         return rootView;
     }
+
+
     private void getPeriod(){
 
         periodList.add(new PeriodTimes("04:00 04:30", "lutti", 1)) ;

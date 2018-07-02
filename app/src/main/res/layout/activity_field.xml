@@ -10,24 +10,21 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ImageView
+        <include
+            layout="@layout/images_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/stadium" />
+            android:layout_weight="1" />
 
         <GridLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginTop="16dp"
             android:columnCount="2">
 
             <TextView
                 android:layout_columnWeight="1"
                 android:layout_gravity="center_vertical"
-                android:layout_margin="8dp"
                 android:layout_rowWeight="1"
                 android:drawablePadding="8dp"
                 android:drawableStart="@drawable/sharp_account_circle_black_24"
@@ -37,7 +34,6 @@
             <TextView
                 android:layout_columnWeight="1"
                 android:layout_gravity="center_vertical"
-                android:layout_margin="8dp"
                 android:layout_rowWeight="1"
                 android:drawablePadding="8dp"
                 android:drawableStart="@drawable/sharp_location_on_black_24"
@@ -47,7 +43,6 @@
             <TextView
                 android:layout_columnWeight="1"
                 android:layout_gravity="center_vertical"
-                android:layout_margin="8dp"
                 android:layout_rowWeight="1"
                 android:drawablePadding="8dp"
                 android:drawableStart="@drawable/baseline_watch_black_24"
@@ -57,7 +52,6 @@
             <TextView
                 android:layout_columnWeight="1"
                 android:layout_gravity="center_vertical"
-                android:layout_margin="8dp"
                 android:layout_rowWeight="1"
                 android:drawablePadding="8dp"
                 android:drawableStart="@drawable/baseline_phone_android_black_24"
@@ -67,22 +61,18 @@
             <TextView
                 android:layout_columnSpan="2"
                 android:layout_columnWeight="1"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="8dp"
+                android:layout_gravity="center_horizontal|center_vertical"
                 android:layout_rowWeight="1"
                 android:drawablePadding="8dp"
                 android:drawableStart="@drawable/round_check_circle_black_24"
                 android:text="Available"
                 android:textColor="@android:color/black"
                 android:textSize="24sp" />
-
         </GridLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"
-            android:layout_marginTop="16dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <ImageButton
@@ -114,44 +104,11 @@
                 android:src="@drawable/baseline_arrow_right_black_36" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"
-            android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/left_button_period"
+        <include
+            layout="@layout/activity_time_recycle_view"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:background="@color/colorPrimary"
-                android:onClick="onLeftClicked"
-                android:src="@drawable/baseline_arrow_left_black_36" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-                <include layout="@layout/activity_time_recycle_view" />
-            </LinearLayout>
-
-            <ImageButton
-                android:id="@+id/right_button_period"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@color/colorPrimary"
-                android:onClick="onRightClicked"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:src="@drawable/baseline_arrow_right_black_36" />
-        </LinearLayout>
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 </ScrollView>

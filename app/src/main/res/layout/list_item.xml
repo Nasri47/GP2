@@ -2,13 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:layout_margin="8dp"
+    android:background="@drawable/payment_card"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/l_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
         android:text="Ahmed Ali"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@android:color/black" />
@@ -17,13 +19,17 @@
         android:id="@+id/l_phone_Number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0900244491" />
+        android:layout_marginLeft="8dp"
+        android:text="0900244491"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     <TextView
         android:id="@+id/l_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/black" />
 
     <RelativeLayout
@@ -34,21 +40,31 @@
             android:id="@+id/l_accept"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="accept" />
+            android:focusable="true"
+            android:padding="8dp"
+            android:text="Accept"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@android:color/holo_green_dark" />
 
         <TextView
             android:id="@+id/l_decline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
             android:layout_toRightOf="@id/l_accept"
-            tools:text="decline" />
+            android:focusable="true"
+            android:padding="8dp"
+            android:text="Decline"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@android:color/holo_red_dark" />
 
         <TextView
             android:id="@+id/l_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:text="Delete" />
+            android:padding="8dp"
+            android:text="@android:color/black"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            tools:text="Block" />
     </RelativeLayout>
 </LinearLayout>
