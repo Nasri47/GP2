@@ -2,16 +2,18 @@ package com.example.nasri.gp;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 
 public class ReservationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.list_view, container, false);
+        View rootView = inflater.inflate(R.layout.recycler_view, container, false);
         ArrayList<ListDetails> reservationDetails = new ArrayList<ListDetails>();
         reservationDetails.add(new ListDetails("nasri", "0900244491", "want to reserve the field from 4pm to 6pm", 1));
         reservationDetails.add(new ListDetails("nasri", "0900244491", "want to reserve the field from 4pm to 6pm", 1));
@@ -25,9 +27,12 @@ public class ReservationFragment extends Fragment {
         reservationDetails.add(new ListDetails("nasri", "0900244491", "want to reserve the field from 4pm to 6pm", 1));
         reservationDetails.add(new ListDetails("nasri", "0900244491", "want to reserve the field from 4pm to 6pm", 1));
 
-        ListAdapter listAdapter = new ListAdapter(getActivity(), reservationDetails);
-        ListView listView = (ListView) rootView.findViewById(R.id.list_view);
-        listView.setAdapter(listAdapter);
+        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
+        ListAdapter listAdapter = new ListAdapter(reservationDetails);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(listAdapter);
         return rootView;
     }
 }

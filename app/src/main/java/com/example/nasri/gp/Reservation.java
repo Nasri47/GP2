@@ -8,7 +8,7 @@ public class Reservation extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.list_view);
+        setContentView(R.layout.recycler_view);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.category);
         getSupportFragmentManager().beginTransaction().replace(R.id.container, new ReservationFragment()).commit();
