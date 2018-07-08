@@ -1,18 +1,12 @@
 package com.example.nasri.gp;
 
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +23,9 @@ public class FieldsList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fields_list);
-        //
+
         fieldSearchView = (SearchView) findViewById(R.id.mSearch);
-        //
+
         fieldsRecycler = (RecyclerView) findViewById(R.id.fields_list_recycler);
         fieldsAdapter = new FieldsListAdapter(fieldItems , this);
         fieldsRecycler.setHasFixedSize(true);
@@ -60,14 +54,14 @@ public class FieldsList extends AppCompatActivity {
 
     private void getPeriod(){
 
-        fieldItems.add(new FieldItem("Almajd", "Khartoum")) ;
-        fieldItems.add(new FieldItem("Almajd", "Khartoum")) ;
-        fieldItems.add(new FieldItem("Almajd", "Khartoum")) ;
-        fieldItems.add(new FieldItem("Almajd", "Khartoum")) ;
-        fieldItems.add(new FieldItem("Almajd", "Khartoum")) ;
-        fieldItems.add(new FieldItem("Almajd", "Khartoum")) ;
-        fieldItems.add(new FieldItem("Almajd", "Khartoum")) ;
-        fieldItems.add(new FieldItem("Almajd", "Khartoum")) ;
+        fieldItems.add(new FieldItem("nasri", "Khartoum"));
+        fieldItems.add(new FieldItem("boors", "Khartoum"));
+        fieldItems.add(new FieldItem("bakri", "Khartoum"));
+        fieldItems.add(new FieldItem("salah", "Khartoum"));
+        fieldItems.add(new FieldItem("mnag", "Khartoum"));
+        fieldItems.add(new FieldItem("snoop", "Khartoum"));
+        fieldItems.add(new FieldItem("buga", "Khartoum"));
+        fieldItems.add(new FieldItem("bino", "Khartoum"));
         fieldItems.add(new FieldItem("Almajd", "Khartoum")) ;
         fieldItems.add(new FieldItem("Almajd", "Khartoum")) ;
         fieldItems.add(new FieldItem("Almajd", "Khartoum")) ;

@@ -22,6 +22,12 @@
             android:layout_weight="1"
             android:columnCount="2">
 
+            <ImageButton
+                android:id="@+id/btnedit"
+                android:layout_columnSpan="2"
+                android:layout_gravity="end"
+                android:src="@drawable/baseline_edit_black_24" />
+
             <TextView
                 android:layout_columnWeight="1"
                 android:layout_gravity="center_vertical"
@@ -44,6 +50,7 @@
                 android:layout_columnWeight="1"
                 android:layout_gravity="center_vertical"
                 android:layout_rowWeight="1"
+
                 android:drawablePadding="8dp"
                 android:drawableStart="@drawable/baseline_watch_black_24"
                 android:text="200 SDG per hour"
@@ -104,10 +111,9 @@
                 android:src="@drawable/baseline_arrow_right_black_36" />
         </LinearLayout>
 
-
         <include
             layout="@layout/activity_time_recycle_view"
-                android:layout_width="wrap_content"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
     </LinearLayout>

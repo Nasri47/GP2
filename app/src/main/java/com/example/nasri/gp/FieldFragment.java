@@ -1,5 +1,6 @@
 package com.example.nasri.gp;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -40,21 +43,25 @@ public class FieldFragment extends Fragment{
         periodRecycler.setLayoutManager(periodLayout);
         periodRecycler.setItemAnimator(new DefaultItemAnimator());
         periodRecycler.setAdapter(timetableAdabter);
-        /*
-         *
-         *
-         *
-         * */
         mSlideViewPager = (ViewPager) rootView.findViewById(R.id.slideviewpager);
         sliderAdapter = new SliderAdapter(getContext());
         mSlideViewPager.setAdapter(sliderAdapter);
         TabLayout tabLayout = (TabLayout) rootView.findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(mSlideViewPager, true);
-        /*
-         *
-         *
-         *
-         *  */
+
+        ImageButton mUpdateDialog = rootView.findViewById(R.id.btnedit);
+        mUpdateDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
+                View mView = getLayoutInflater().inflate(R.layout.activity_main, null);
+                Button mUpdate = mView.findViewById(R.id.add_update);
+                mUpdate.setText("Update");
+                mBuilder.setView(mView);
+                final AlertDialog dialog = mBuilder.create();
+                dialog.show();
+            }
+        });
         //Date and history
         daysFlipper = (ViewFlipper)rootView.findViewById(R.id.days_flipper);
         daysList.add("SUN") ;

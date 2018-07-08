@@ -1,20 +1,124 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".PlayerActivity">
 
-    <include
-        layout="@layout/activity_field"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <Button
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:text="Reserve" />
+        android:orientation="vertical">
 
-</RelativeLayout>
+        <include
+            layout="@layout/images_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:columnCount="2">
+
+            <TextView
+                android:id="@+id/field_name_player"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center_vertical"
+                android:layout_rowWeight="1"
+                android:drawablePadding="8dp"
+                android:drawableStart="@drawable/sharp_account_circle_black_24"
+                android:text="name of the Field"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/field_location_player"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center_vertical"
+                android:layout_rowWeight="1"
+                android:drawablePadding="8dp"
+                android:drawableStart="@drawable/sharp_location_on_black_24"
+                android:text="Location of The Field"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:layout_columnWeight="1"
+                android:layout_gravity="center_vertical"
+                android:layout_rowWeight="1"
+
+                android:drawablePadding="8dp"
+                android:drawableStart="@drawable/baseline_watch_black_24"
+                android:text="200 SDG per hour"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:layout_columnWeight="1"
+                android:layout_gravity="center_vertical"
+                android:layout_rowWeight="1"
+                android:drawablePadding="8dp"
+                android:drawableStart="@drawable/baseline_phone_android_black_24"
+                android:text="Phone"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:layout_columnSpan="2"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_rowWeight="1"
+                android:drawablePadding="8dp"
+                android:drawableStart="@drawable/round_check_circle_black_24"
+                android:text="Available"
+                android:textColor="@android:color/black"
+                android:textSize="24sp" />
+        </GridLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/left_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="0.1"
+                android:background="@android:color/transparent"
+                android:src="@drawable/baseline_arrow_left_black_36" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <include layout="@layout/activity_dates_list" />
+
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/right_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="4dp"
+                android:layout_weight="0.1"
+                android:background="@android:color/transparent"
+                android:src="@drawable/baseline_arrow_right_black_36" />
+        </LinearLayout>
+
+
+        <include
+            layout="@layout/activity_time_recycle_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorPrimary"
+            android:text="Reserve" />
+    </LinearLayout>
+</ScrollView>

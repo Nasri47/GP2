@@ -13,7 +13,13 @@ public class FieldItem {
         fieldCity = city ;
     }
 
-    public String getfieldName(){return fieldName;}
-    public String getfieldCity (){return fieldCity ;}
+    public String getfieldName() {
+        return fieldName;
+    }
+
+    public String getfieldCity() {
+        return fieldCity;
+    }
+
 }
 
