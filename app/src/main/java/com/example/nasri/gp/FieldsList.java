@@ -76,6 +76,10 @@ public class FieldsList extends AppCompatActivity {
 
         fieldsAdapter.notifyDataSetChanged();
     }
+
+    public void add(FieldItem field) {
+        fieldItems.add(field);
+    }
 }
 
 

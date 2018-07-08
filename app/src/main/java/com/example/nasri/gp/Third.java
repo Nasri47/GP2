@@ -39,13 +39,4 @@ public class Third extends AppCompatActivity {
             }
         });
     }
-
-//    public void onLogin(View view){
-//        Intent log = new Intent(this , Main2Activity.class) ;
-//        startActivity(log);
-//    }
-//    public void register(View view){
-//        Intent log = new Intent(this , RegisterField.class) ;
-//        startActivity(log);
-//    }
 }

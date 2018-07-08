@@ -54,12 +54,19 @@ public class FieldFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
-                View mView = getLayoutInflater().inflate(R.layout.activity_main, null);
+                final View mView = getLayoutInflater().inflate(R.layout.activity_main, null);
                 Button mUpdate = mView.findViewById(R.id.add_update);
                 mUpdate.setText("Update");
                 mBuilder.setView(mView);
                 final AlertDialog dialog = mBuilder.create();
                 dialog.show();
+                mUpdate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+//                        Toast.makeText(MainActivity.this,"add")
+                    }
+                });
+
             }
         });
         //Date and history
