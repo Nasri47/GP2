@@ -17,14 +17,16 @@
         <activity android:name=".Complaints" />
         <activity android:name=".Reservation" />
         <activity android:name=".MainActivity">
+
+        </activity>
+        <activity android:name=".Field" />
+        <activity android:name=".Third">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Field" />
-        <activity android:name=".Third" />
         <activity android:name=".RegisterField" />
         <activity
             android:name=".reserveRegester"
