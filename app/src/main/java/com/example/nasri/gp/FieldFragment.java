@@ -16,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import java.util.ArrayList;
@@ -63,7 +64,7 @@ public class FieldFragment extends Fragment{
                 mUpdate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        Toast.makeText(MainActivity.this,"add")
+                        Toast.makeText(getContext(), "add Successfully", Toast.LENGTH_SHORT).show();
                     }
                 });
 
