@@ -9,6 +9,6 @@
         android:id="@+id/period_id"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:background="@drawable/reserved_period" />
+        android:background="@drawable/period_selector" />
 
 </RelativeLayout>

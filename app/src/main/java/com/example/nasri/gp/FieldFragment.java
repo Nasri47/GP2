@@ -19,12 +19,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class FieldFragment extends Fragment{
     private ViewPager mSlideViewPager;
     private SliderAdapter sliderAdapter;
+    private Time openTime ;
+    private Time closeTime ;
 
     private List<PeriodTimes> periodList = new ArrayList<>();
     private List<String> daysList = new ArrayList<>();
@@ -35,10 +41,12 @@ public class FieldFragment extends Fragment{
     private TextView historyText ;
     private LinearLayout innerDayHistoryLayout ;
     private ViewFlipper daysFlipper ;
+    private Button reserveButton ;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_field, container, false);
         periodRecycler = (RecyclerView) rootView.findViewById(R.id.timetable_recycle_view);
-        timetableAdabter = new TimetableAdabter(periodList);
+        reserveButton = (Button)  rootView.findViewById(R.id.reserve_button);
+        timetableAdabter = new TimetableAdabter(periodList , reserveButton);
         periodRecycler.setHasFixedSize(true);
         RecyclerView.LayoutManager periodLayout = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         periodRecycler.setLayoutManager(periodLayout);
@@ -100,7 +108,13 @@ public class FieldFragment extends Fragment{
             historyText.setGravity(TextView.TEXT_ALIGNMENT_CENTER);
             innerDayHistoryLayout.addView(dayText);
             innerDayHistoryLayout.addView(historyText);
+
         }
+
+        //Date and time
+        openTime =  Time.valueOf("04:00:00");
+        closeTime =  Time.valueOf("12:00:00");
+
 
         //handling flipper
 
@@ -125,23 +139,20 @@ public class FieldFragment extends Fragment{
 
 
     private void getPeriod(){
+            Calendar cal = Calendar.getInstance();
+            Calendar cal2 = Calendar.getInstance();
+            SimpleDateFormat df = new SimpleDateFormat("HH:mm");
+            cal2.setTime(closeTime);
+            cal.setTime(openTime);
+            while (!cal.equals(cal2)){
+                String newTime = df.format(cal.getTime());
+                cal.add(Calendar.MINUTE, 30);
+                String newTim = df.format(cal.getTime());
+                periodList.add(new PeriodTimes(newTime + " " + newTim , "lutti", 4));
 
-        periodList.add(new PeriodTimes("04:00 04:30", "lutti", 1)) ;
-        periodList.add(new PeriodTimes("04:30 05:00", "lutti",2));
-        periodList.add(new PeriodTimes("05:00 05:30", "lutti", 3));
-        periodList.add(new PeriodTimes("05:30 06:00", "lutti", 4));
-        periodList.add(new PeriodTimes("06:00 06:30", "lutti", 1)) ;
-        periodList.add(new PeriodTimes("06:30 07:00", "lutti",2));
-        periodList.add(new PeriodTimes("07:00 07:30", "lutti", 3));
-        periodList.add(new PeriodTimes("07:30 08:00", "lutti", 4));
-        periodList.add(new PeriodTimes("08:00 08:30", "lutti", 1)) ;
-        periodList.add(new PeriodTimes("08:30 09:00", "lutti",2));
-        periodList.add(new PeriodTimes("09:00 09:30", "lutti", 3));
-        periodList.add(new PeriodTimes("09:30 10:00", "lutti", 4));
-        periodList.add(new PeriodTimes("10:00 10:30", "lutti", 1)) ;
-        periodList.add(new PeriodTimes("10:30 11:00", "lutti",2));
-        periodList.add(new PeriodTimes("11:00 11:30", "lutti", 3));
-        periodList.add(new PeriodTimes("11:30 12:00", "lutti", 4));
+            }
+
+
 
         timetableAdabter.notifyDataSetChanged();
     }
