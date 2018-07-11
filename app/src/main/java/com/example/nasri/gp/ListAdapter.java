@@ -1,5 +1,7 @@
 package com.example.nasri.gp;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -7,18 +9,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> {
     private List<ListDetails> listDetails;
+    private static Context context;
+
 
     public ListAdapter(List<ListDetails> listDetails) {
         this.listDetails = listDetails;
     }
+    public ListAdapter(List<ListDetails> listDetails , Context conte) {
+        this.listDetails = listDetails;
+        this.context = conte ;
+    }
 
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
         return new MyViewHolder(itemView);
     }
@@ -35,6 +43,16 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
                 holder.accept.setText("Accept");
                 holder.decline.setText("Decline");
                 holder.delete.setText("Block");
+                holder.delete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final Intent intent;
+                        System.out.println("jjjjjjjjjjjjjj "+context+" llllllllllll");
+                        intent =  new Intent(context, Blocking_user.class);
+                        context.startActivity(intent);
+                        notifyDataSetChanged();
+                    }
+                });
                 break;
             case 2:
                 holder.delete.setText("Delete");

@@ -1,5 +1,6 @@
 package com.example.nasri.gp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -35,7 +36,7 @@ public class PlayerActivity extends AppCompatActivity {
     private TextView historyText;
     private LinearLayout innerDayHistoryLayout;
     private ViewFlipper daysFlipper;
-    private Button reserveButton ;
+    private Button reserveButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,22 +64,21 @@ public class PlayerActivity extends AppCompatActivity {
         fieldLocationPlayer.setText(fieldLocation);
 
         //Date and history
+        Calendar dateCal = Calendar.getInstance();
+        dateCal.getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("E");
+        for(int i = 0; i< 6; i++){
+            daysList.add(dateFormat.format(dateCal.getTime()));
+            dateCal.add(Calendar.DAY_OF_YEAR, 1);
+        }
+        Calendar historyCal = Calendar.getInstance();
+        historyCal.getTime();
+        SimpleDateFormat historyFormat = new SimpleDateFormat("M/dd");
+        for(int i = 0; i< 30; i++){
+            historyList.add(historyFormat.format(historyCal.getTime()));
+            historyCal.add(Calendar.DAY_OF_YEAR, 1);
+        }
         daysFlipper = (ViewFlipper) findViewById(R.id.days_flipper);
-        daysList.add("SUN");
-        daysList.add("MON");
-        daysList.add("TUE");
-        daysList.add("WED");
-        daysList.add("THU");
-        daysList.add("FRI");
-        daysList.add("SAT");
-        historyList.add("4/6");
-        historyList.add("5/6");
-        historyList.add("6/6");
-        historyList.add("7/6");
-        historyList.add("8/6");
-        historyList.add("9/6");
-        historyList.add("10/6");
-
         for (int i = 0; i < daysList.size(); i++) {
             innerDayHistoryLayout = new LinearLayout(this);
             innerDayHistoryLayout.setOrientation(LinearLayout.VERTICAL);
@@ -114,8 +114,6 @@ public class PlayerActivity extends AppCompatActivity {
             }
         });
         getPeriod();
-        getDate();
-            System.out.println("jffffffffffffffffffg   " + timetableAdabter.getSelected());
         if (timetableAdabter.getSelected() >= 2){
                 reserveButton.setEnabled(true);
         }else{
@@ -141,11 +139,6 @@ public class PlayerActivity extends AppCompatActivity {
         timetableAdabter.notifyDataSetChanged();
     }
 
-    private void getDate() {
-
-
-    }
-
     public void onLeftClicked(View view) {
 
         LinearLayoutManager dateLayout = (LinearLayoutManager) periodRecycler.getLayoutManager();
@@ -167,5 +160,9 @@ public class PlayerActivity extends AppCompatActivity {
         dateLayout.smoothScrollToPosition(periodRecycler, null, lastVisibleItemIndex + 1);
 
 
+    }
+    public void onClickReserve(View view){
+        Intent log = new Intent(PlayerActivity.this, reserveRegester.class);
+        startActivity(log);
     }
 }
