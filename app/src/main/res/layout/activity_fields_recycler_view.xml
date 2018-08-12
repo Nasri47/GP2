@@ -12,12 +12,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
         <android.support.v7.widget.SearchView
             android:id="@+id/mSearch"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
             app:defaultQueryHint="Search.." />
+        <ImageButton
+            android:id="@+id/btn_map"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/baseline_place_black_24" />
+    </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/fields_list_recycler"
