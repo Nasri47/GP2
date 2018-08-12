@@ -1,6 +1,8 @@
 package com.example.nasri.gp;
 
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -24,27 +26,29 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class FieldFragment extends Fragment{
+public class FieldFragment extends Fragment {
     private ViewPager mSlideViewPager;
     private SliderAdapter sliderAdapter;
-    private Time openTime ;
-    private Time closeTime ;
+    private Time openTime;
+    private Time closeTime;
 
     private List<PeriodTimes> periodList = new ArrayList<>();
     private List<String> daysList = new ArrayList<>();
     private List<String> historyList = new ArrayList<>();
     private RecyclerView periodRecycler;
     private TimetableAdabter timetableAdabter;
-    private TextView dayText ;
-    private TextView historyText ;
-    private LinearLayout innerDayHistoryLayout ;
-    private ViewFlipper daysFlipper ;
-    private Button reserveButton ;
+    private TextView dayText;
+    private TextView historyText;
+    private LinearLayout innerDayHistoryLayout;
+    private ViewFlipper daysFlipper;
+    private Button reserveButton;
+    private Context prfileContext;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_field, container, false);
         periodRecycler = (RecyclerView) rootView.findViewById(R.id.timetable_recycle_view);
-        reserveButton = (Button)  rootView.findViewById(R.id.reserve_button);
-        timetableAdabter = new TimetableAdabter(periodList , reserveButton);
+        reserveButton = (Button) rootView.findViewById(R.id.reserve_button);
+        timetableAdabter = new TimetableAdabter(periodList, reserveButton);
         periodRecycler.setHasFixedSize(true);
         RecyclerView.LayoutManager periodLayout = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         periodRecycler.setLayoutManager(periodLayout);
@@ -77,25 +81,25 @@ public class FieldFragment extends Fragment{
             }
         });
         //Date and history
-        daysFlipper = (ViewFlipper)rootView.findViewById(R.id.days_flipper);
-        daysList.add("SUN") ;
-        daysList.add("MON") ;
-        daysList.add("TUE") ;
-        daysList.add("WED") ;
-        daysList.add("THU") ;
-        daysList.add("FRI") ;
-        daysList.add("SAT") ;
-        historyList.add("4/6") ;
-        historyList.add("5/6") ;
-        historyList.add("6/6") ;
-        historyList.add("7/6") ;
-        historyList.add("8/6") ;
-        historyList.add("9/6") ;
-        historyList.add("10/6") ;
+        daysFlipper = (ViewFlipper) rootView.findViewById(R.id.days_flipper);
+        //Date and history
+        Calendar dateCal = Calendar.getInstance();
+        dateCal.getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("E");
+        for (int i = 0; i < 6; i++) {
+            daysList.add(dateFormat.format(dateCal.getTime()));
+            dateCal.add(Calendar.DAY_OF_YEAR, 1);
+        }
+        Calendar historyCal = Calendar.getInstance();
+        historyCal.getTime();
+        SimpleDateFormat historyFormat = new SimpleDateFormat("M/dd");
+        for (int i = 0; i < 30; i++) {
+            historyList.add(historyFormat.format(historyCal.getTime()));
+            historyCal.add(Calendar.DAY_OF_YEAR, 1);
+        }
 
-        for(int i=0;i<daysList.size();i++)
-        {
-            innerDayHistoryLayout = new LinearLayout(getContext()) ;
+        for (int i = 0; i < daysList.size(); i++) {
+            innerDayHistoryLayout = new LinearLayout(getContext());
             innerDayHistoryLayout.setOrientation(LinearLayout.VERTICAL);
             daysFlipper.addView(innerDayHistoryLayout);
             dayText = new TextView(getContext());
@@ -110,20 +114,30 @@ public class FieldFragment extends Fragment{
         }
 
         //Date and time
-        openTime =  Time.valueOf("04:00:00");
-        closeTime =  Time.valueOf("12:00:00");
+        openTime = Time.valueOf("04:00:00");
+        closeTime = Time.valueOf("12:00:00");
 
 
         //handling flipper
 
-        ImageView leftArrowButton = (ImageView)rootView.findViewById(R.id.left_button);
+        ImageView leftArrowButton = (ImageView) rootView.findViewById(R.id.left_button);
         leftArrowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 daysFlipper.showPrevious();
             }
         });
-        ImageView rightArrowButton = (ImageView)rootView.findViewById(R.id.right_button);
+        Button reserveBt = (Button) rootView.findViewById(R.id.reserve_button);
+        reserveBt.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent log = new Intent(getContext() , reserveRegester.class);
+                startActivity(log);
+            }
+        });
+        ImageView rightArrowButton = (ImageView) rootView.findViewById(R.id.right_button);
         rightArrowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -131,53 +145,55 @@ public class FieldFragment extends Fragment{
             }
         });
         getPeriod();
-        getDate() ;
+        getDate();
         return rootView;
     }
 
 
-    private void getPeriod(){
-            Calendar cal = Calendar.getInstance();
-            Calendar cal2 = Calendar.getInstance();
-            SimpleDateFormat df = new SimpleDateFormat("HH:mm");
-            cal2.setTime(closeTime);
-            cal.setTime(openTime);
-            while (!cal.equals(cal2)){
-                String newTime = df.format(cal.getTime());
-                cal.add(Calendar.MINUTE, 30);
-                String newTim = df.format(cal.getTime());
-                periodList.add(new PeriodTimes(newTime + " " + newTim , "lutti", 4));
+    private void getPeriod() {
+        Calendar cal = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("HH:mm");
+        cal2.setTime(closeTime);
+        cal.setTime(openTime);
+        while (!cal.equals(cal2)) {
+            String newTime = df.format(cal.getTime());
+            cal.add(Calendar.MINUTE, 30);
+            String newTim = df.format(cal.getTime());
+            periodList.add(new PeriodTimes(newTime + " " + newTim, "lutti", 4));
 
-            }
-
+        }
 
 
         timetableAdabter.notifyDataSetChanged();
     }
-    private void getDate(){
+
+    private void getDate() {
 
 
     }
-    public void onLeftClicked(View view){
+
+    public void onLeftClicked(View view) {
 
         LinearLayoutManager dateLayout = (LinearLayoutManager) periodRecycler.getLayoutManager();
         int firstVisibleItemIndex = dateLayout.findFirstCompletelyVisibleItemPosition();
         if (firstVisibleItemIndex > 0) {
-            dateLayout.smoothScrollToPosition(periodRecycler,null,firstVisibleItemIndex-1);
+            dateLayout.smoothScrollToPosition(periodRecycler, null, firstVisibleItemIndex - 1);
         }
 
     }
-    public void onRightClicked(View view){
+
+    public void onRightClicked(View view) {
 
         LinearLayoutManager dateLayout = (LinearLayoutManager) periodRecycler.getLayoutManager();
         int totalItemCount = periodRecycler.getAdapter().getItemCount();
         if (totalItemCount <= 0) return;
         int lastVisibleItemIndex = dateLayout.findLastVisibleItemPosition();
-        periodRecycler.smoothScrollToPosition(dateLayout.findLastVisibleItemPosition()+1);
+        periodRecycler.smoothScrollToPosition(dateLayout.findLastVisibleItemPosition() + 1);
         if (lastVisibleItemIndex >= totalItemCount) return;
-        dateLayout.smoothScrollToPosition(periodRecycler,null,lastVisibleItemIndex+1);
+        dateLayout.smoothScrollToPosition(periodRecycler, null, lastVisibleItemIndex + 1);
 
 
     }
-    }
+}
 
