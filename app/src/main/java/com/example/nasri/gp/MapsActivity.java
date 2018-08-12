@@ -56,7 +56,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         } else if (mMap != null) {
             // Access to the location has been granted to the app.
             mMap.setMyLocationEnabled(true);
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(mMap.getCameraPosition().zoom));
         }
     }
 }
