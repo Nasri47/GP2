@@ -2,17 +2,14 @@ package com.example.nasri.gp;
 
 public class PeriodTimes {
 
-    String startTime ;
-    String endTime ;
+    String researveTime ;
     int stateColor ;
 
-    public PeriodTimes (String start , String end , int state){
-        startTime = start ;
-        endTime = end ;
+    public PeriodTimes (String time, int state){
+        researveTime = time ;
         stateColor = state ;
     }
 
-    public String getStartTime(){return startTime;}
-    public String getEndTime (){return endTime ;}
+    public String getResearveTime (){return researveTime ;}
     public int getStateColor (){return stateColor ;}
 }

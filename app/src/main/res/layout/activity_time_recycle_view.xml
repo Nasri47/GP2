@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
-        android:src="@drawable/baseline_arrow_left_black_36" />
+        android:src="@drawable/baseline_arrow_left_black" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/timetable_recycle_view"
@@ -27,6 +27,6 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
-        android:src="@drawable/baseline_arrow_right_black_36" />
+        android:src="@drawable/baseline_arrow_right_black" />
 
 </LinearLayout>

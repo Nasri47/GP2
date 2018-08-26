@@ -44,13 +44,11 @@ public final class FieldsListUtils {
                 JSONObject currentEarthquake = fieldsListArray.getJSONObject(i);
 
                 //JSONObject fieldsInfo = currentEarthquake.getJSONObject("data");
+                int fieldId = currentEarthquake.getInt("id");
                 String fieldName = currentEarthquake.getString("field_name");
                 String fieldCity = currentEarthquake.getString("field_city");
-                String fieldLat = currentEarthquake.getString("field_lat");
-                String FieldLng = currentEarthquake.getString("field_lng");
-                String fieldPrice = currentEarthquake.getString("field_hour_price");
                 String fieldSize = currentEarthquake.getString("field_size");
-                FieldItem fields = new FieldItem(fieldName , fieldCity);
+                FieldItem fields = new FieldItem(fieldId , fieldName , fieldCity , fieldSize);
                 fieldsList.add(fields);
             }
         } catch (JSONException e) {

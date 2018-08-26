@@ -2,7 +2,11 @@ package com.example.nasri.gp;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,31 +14,45 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import java.util.ArrayList;
-public class ReservationFragment extends Fragment  {
+import java.util.List;
+
+public class ReservationFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<ResearvationsRequistsInfo>> {
     public static Context reserveConte;
+    private static final int RESERVE_REQUEST_LOADER_ID = 1 ;
+    private String USGS_REQUEST_URL ;
+    private List<ResearvationsRequistsInfo> reservationDetails = new ArrayList<ResearvationsRequistsInfo>();
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.recycler_view, container, false);
         reserveConte = getContext() ;
-        ArrayList<ListDetails> reservationDetails = new ArrayList<ListDetails>();
-        reservationDetails.add(new ListDetails("nasri", "0900244491", "want to reserve the field from 4pm to 6pm", 1));
-        reservationDetails.add(new ListDetails("nasri", "0900244491", "want to reserve the field from 4pm to 6pm", 1));
-        reservationDetails.add(new ListDetails("nasri", "0900244491", "want to reserve the field from 4pm to 6pm", 1));
-        reservationDetails.add(new ListDetails("nasri", "0900244491", "want to reserve the field from 4pm to 6pm", 1));
-        reservationDetails.add(new ListDetails("nasri", "0900244491", "want to reserve the field from 4pm to 6pm", 1));
-        reservationDetails.add(new ListDetails("nasri", "0900244491", "want to reserve the field from 4pm to 6pm", 1));
-        reservationDetails.add(new ListDetails("nasri", "0900244491", "want to reserve the field from 4pm to 6pm", 1));
-        reservationDetails.add(new ListDetails("nasri", "0900244491", "want to reserve the field from 4pm to 6pm", 1));
-        reservationDetails.add(new ListDetails("nasri", "0900244491", "want to reserve the field from 4pm to 6pm", 1));
-        reservationDetails.add(new ListDetails("nasri", "0900244491", "want to reserve the field from 4pm to 6pm", 1));
-        reservationDetails.add(new ListDetails("nasri", "0900244491", "want to reserve the field from 4pm to 6pm", 1));
-
+        USGS_REQUEST_URL = "http://192.168.43.172/api/getresearvations?field_id=" + LoginInfo.getFieldId() ;
+        LoaderManager loaderManager = getLoaderManager();
+        loaderManager.initLoader(RESERVE_REQUEST_LOADER_ID, null,  this);
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-        ListAdapter listAdapter = new ListAdapter(reservationDetails , reserveConte);
+        ReservationAdapter reservationAdapter = new ReservationAdapter(reservationDetails , reserveConte);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(listAdapter);
+        recyclerView.setAdapter(reservationAdapter);
         return rootView;
+    }
+
+    @NonNull
+    @Override
+    public Loader<List<ResearvationsRequistsInfo>> onCreateLoader(int id, @Nullable Bundle args) {
+        return new ResearveRequistsLoader(reserveConte , USGS_REQUEST_URL) ;
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader<List<ResearvationsRequistsInfo>> loader, List<ResearvationsRequistsInfo> data) {
+        reservationDetails.clear();
+        if(data != null && !data.isEmpty()){
+            reservationDetails.addAll(data);
+        }
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<List<ResearvationsRequistsInfo>> loader) {
+
     }
 }

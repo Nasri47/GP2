@@ -30,7 +30,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_rowWeight="1"
                 android:drawablePadding="8dp"
-                android:drawableStart="@drawable/sharp_account_circle_black_24"
+                android:drawableStart="@drawable/sharp_account_circle_black"
                 android:text="name of the Field"
                 android:textColor="@android:color/black" />
 
@@ -40,26 +40,28 @@
                 android:layout_gravity="center_vertical"
                 android:layout_rowWeight="1"
                 android:drawablePadding="8dp"
-                android:drawableStart="@drawable/sharp_location_on_black_24"
+                android:drawableStart="@drawable/sharp_location_on_black"
                 android:text="Location of The Field"
                 android:textColor="@android:color/black" />
 
             <TextView
+                android:id="@+id/player_price"
                 android:layout_columnWeight="1"
                 android:layout_gravity="center_vertical"
                 android:layout_rowWeight="1"
 
                 android:drawablePadding="8dp"
-                android:drawableStart="@drawable/baseline_watch_black_24"
+                android:drawableStart="@drawable/baseline_watch_black"
                 android:text="200 SDG per hour"
                 android:textColor="@android:color/black" />
 
             <TextView
+                android:id="@+id/player_phone"
                 android:layout_columnWeight="1"
                 android:layout_gravity="center_vertical"
                 android:layout_rowWeight="1"
                 android:drawablePadding="8dp"
-                android:drawableStart="@drawable/baseline_phone_android_black_24"
+                android:drawableStart="@drawable/baseline_phone_android_black"
                 android:text="Phone"
                 android:textColor="@android:color/black" />
 
@@ -69,7 +71,7 @@
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:layout_rowWeight="1"
                 android:drawablePadding="8dp"
-                android:drawableStart="@drawable/round_check_circle_black_24"
+                android:drawableStart="@drawable/round_check_circle_black"
                 android:text="Available"
                 android:textColor="@android:color/black"
                 android:textSize="24sp" />
@@ -87,7 +89,7 @@
                 android:layout_marginEnd="4dp"
                 android:layout_weight="0.1"
                 android:background="@android:color/transparent"
-                android:src="@drawable/baseline_arrow_left_black_36" />
+                android:src="@drawable/baseline_arrow_left_black" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -106,7 +108,7 @@
                 android:layout_marginStart="4dp"
                 android:layout_weight="0.1"
                 android:background="@android:color/transparent"
-                android:src="@drawable/baseline_arrow_right_black_36" />
+                android:src="@drawable/baseline_arrow_right_black" />
         </LinearLayout>
 
 

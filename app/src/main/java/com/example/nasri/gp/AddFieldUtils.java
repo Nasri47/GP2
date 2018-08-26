@@ -15,50 +15,47 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Created by Bors on 8/10/2018.
+ * Created by Bors on 8/16/2018.
  */
 
-public class OwnerLoginUtils {
+public class    AddFieldUtils {
 
-    private static final String LOG_TAG = OwnerLoginUtils.class.getSimpleName();
+    private static final String LOG_TAG = FieldsListUtils.class.getSimpleName();
 
-    private OwnerLoginUtils() {
+    private AddFieldUtils() {
     }
 
-    private static LoginInfo extractFeatureFromJson(String ownerJSON) {
-        LoginInfo loginInfo = new LoginInfo();;
-        if (TextUtils.isEmpty(ownerJSON)) {
+    private static FieldInformations extractFeatureFromJson(String fieldsListJSON) {
+        if (TextUtils.isEmpty(fieldsListJSON)) {
             return null;
         }
 
+        FieldInformations fieldsList = new FieldInformations() ;
+
         try {
 
-            JSONObject baseJsonResponse = new JSONObject(ownerJSON);
-            if (!baseJsonResponse.optBoolean("error")) {
-                JSONArray ownerInfoList = baseJsonResponse.getJSONArray("data");
-                for (int i = 0; i < ownerInfoList.length(); i++) {
-                    JSONObject ownerInfoListJSONObject = ownerInfoList.getJSONObject(i);
-                    int userId = ownerInfoListJSONObject.getInt("user_id");
-                    int fieldId = ownerInfoListJSONObject.getInt("field_id");
-                    int response = ownerInfoListJSONObject.getInt("response");
-                    loginInfo = new LoginInfo(response , fieldId , userId);
+            JSONObject baseJsonResponse = new JSONObject(fieldsListJSON);
+            JSONArray fieldsListArray = baseJsonResponse.getJSONArray("data");
+            for (int i = 0; i < fieldsListArray.length(); i++) {
+                JSONObject currentEarthquake = fieldsListArray.getJSONObject(i);
+                int response = currentEarthquake.getInt("response");
+                if (response == 1){
+                    int fieldId = currentEarthquake.getInt("id");
+                    fieldsList = new FieldInformations(response , fieldId);
+                }else{
+                    fieldsList = new FieldInformations(response);
                 }
-            }else {
-                int response = 0;
-                loginInfo = new LoginInfo(response);
             }
         } catch (JSONException e) {
 
             Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
         }
-        return loginInfo;
+        return fieldsList;
     }
 
-    public static LoginInfo fetchfieldsData(String requestUrl) {
+    public static FieldInformations fetchfieldsData(String requestUrl) {
         // Create URL object
         URL url = createUrl(requestUrl);
 
@@ -71,10 +68,10 @@ public class OwnerLoginUtils {
         }
 
         // Extract relevant fields from the JSON response and create a list of {@link Earthquake}s
-        LoginInfo response = extractFeatureFromJson(jsonResponse);
+        FieldInformations fieldItems = extractFeatureFromJson(jsonResponse);
 
         // Return the list of {@link Earthquake}s
-        return response;
+        return fieldItems;
     }
 
     private static URL createUrl(String stringUrl) {
@@ -88,6 +85,7 @@ public class OwnerLoginUtils {
     }
 
     private static String makeHttpRequest(URL url) throws IOException {
+        System.out.println("fffffffffffffffffffffffffffff 111");
         String jsonResponse = "";
 
         // If the URL is null, then return early.

@@ -19,46 +19,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Bors on 8/10/2018.
+ * Created by Bors on 8/14/2018.
  */
 
-public class OwnerLoginUtils {
+public final class SendComlaintsUtils {
 
-    private static final String LOG_TAG = OwnerLoginUtils.class.getSimpleName();
-
-    private OwnerLoginUtils() {
+    private static final String LOG_TAG = SendComlaintsUtils.class.getSimpleName();
+    private SendComlaintsUtils() {
     }
 
-    private static LoginInfo extractFeatureFromJson(String ownerJSON) {
-        LoginInfo loginInfo = new LoginInfo();;
+    private static ComplaintsInfo extractFeatureFromJson(String ownerJSON) {
+        ComplaintsInfo complaintsInfo = new ComplaintsInfo() ;
         if (TextUtils.isEmpty(ownerJSON)) {
             return null;
         }
-
         try {
-
             JSONObject baseJsonResponse = new JSONObject(ownerJSON);
             if (!baseJsonResponse.optBoolean("error")) {
                 JSONArray ownerInfoList = baseJsonResponse.getJSONArray("data");
                 for (int i = 0; i < ownerInfoList.length(); i++) {
                     JSONObject ownerInfoListJSONObject = ownerInfoList.getJSONObject(i);
-                    int userId = ownerInfoListJSONObject.getInt("user_id");
-                    int fieldId = ownerInfoListJSONObject.getInt("field_id");
                     int response = ownerInfoListJSONObject.getInt("response");
-                    loginInfo = new LoginInfo(response , fieldId , userId);
+                    complaintsInfo = new ComplaintsInfo(response);
                 }
-            }else {
-                int response = 0;
-                loginInfo = new LoginInfo(response);
             }
         } catch (JSONException e) {
 
             Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
         }
-        return loginInfo;
+        return complaintsInfo;
     }
 
-    public static LoginInfo fetchfieldsData(String requestUrl) {
+    public static ComplaintsInfo fetchfieldsData(String requestUrl) {
         // Create URL object
         URL url = createUrl(requestUrl);
 
@@ -71,7 +63,7 @@ public class OwnerLoginUtils {
         }
 
         // Extract relevant fields from the JSON response and create a list of {@link Earthquake}s
-        LoginInfo response = extractFeatureFromJson(jsonResponse);
+        ComplaintsInfo response = extractFeatureFromJson(jsonResponse);
 
         // Return the list of {@link Earthquake}s
         return response;

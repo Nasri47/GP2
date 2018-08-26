@@ -42,14 +42,12 @@ public class FieldsList extends AppCompatActivity implements LoaderManager.Loade
             "http://192.168.43.172/api/fieldslist/";
     private static final int FIELD_LIST_LOADER_ID = 1 ;
     private static final String LOG_TAG = FieldsList.class.getName();
-    private ProgressDialog processDialog;
-    private JSONArray restulJsonArray;
-    private int success = 0;
-    private ImageView emptyState ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LoaderManager loaderManager = getLoaderManager();
+        loaderManager.initLoader(FIELD_LIST_LOADER_ID, null, this);
         setContentView(R.layout.activity_fields_list);
         //emptyState = (ImageView) findViewById(R.id.empty) ;
         fieldSearchView = (SearchView) findViewById(R.id.mSearch);
@@ -85,12 +83,10 @@ public class FieldsList extends AppCompatActivity implements LoaderManager.Loade
         });
         getPeriod() ;
 
-        LoaderManager loaderManager = getLoaderManager();
-        loaderManager.initLoader(FIELD_LIST_LOADER_ID, null, this);
-
         //getPeriod() ;
 
     }
+
 
     @Override
     public Loader<List<FieldItem>> onCreateLoader(int i, Bundle bundle) {
@@ -112,31 +108,6 @@ public class FieldsList extends AppCompatActivity implements LoaderManager.Loade
     @Override
     public void onLoaderReset(Loader<List<FieldItem>> loader) {
         fieldItems.clear();
-    }
-
-    private void getPeriod() {
-
-        fieldItems.add(new FieldItem("nasri", "Khartoum"));
-        fieldItems.add(new FieldItem("boors", "Khartoum"));
-        fieldItems.add(new FieldItem("bakri", "Khartoum"));
-        fieldItems.add(new FieldItem("salah", "Khartoum"));
-        fieldItems.add(new FieldItem("mnag", "Khartoum"));
-        fieldItems.add(new FieldItem("snoop", "Khartoum"));
-        fieldItems.add(new FieldItem("buga", "Khartoum"));
-        fieldItems.add(new FieldItem("bino", "Khartoum"));
-        fieldItems.add(new FieldItem("Almajd", "Khartoum"));
-        fieldItems.add(new FieldItem("Almajd", "Khartoum"));
-        fieldItems.add(new FieldItem("Almajd", "Khartoum"));
-        fieldItems.add(new FieldItem("Almajd", "Khartoum"));
-        fieldItems.add(new FieldItem("Almajd", "Khartoum"));
-        fieldItems.add(new FieldItem("Almajd", "Khartoum"));
-        fieldItems.add(new FieldItem("Almajd", "Khartoum"));
-        fieldItems.add(new FieldItem("Almajd", "Khartoum"));
-        fieldItems.add(new FieldItem("Almajd", "Khartoum"));
-        fieldItems.add(new FieldItem("Almajd", "Khartoum"));
-        fieldItems.add(new FieldItem("Almajd", "Khartoum"));
-
-        fieldsAdapter.notifyDataSetChanged();
     }
 }
 

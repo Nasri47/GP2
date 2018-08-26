@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.view.ViewPager;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,13 +26,15 @@ import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
-public class FieldFragment extends Fragment {
+public class FieldFragment extends Fragment implements LoaderManager.LoaderCallbacks<FieldInformations>{
     private ViewPager mSlideViewPager;
     private SliderAdapter sliderAdapter;
     private Time openTime;
     private Time closeTime;
+    private List<ResearvationsRequistsInfo> reserveList ;
 
     private List<PeriodTimes> periodList = new ArrayList<>();
     private List<String> daysList = new ArrayList<>();
@@ -39,16 +43,29 @@ public class FieldFragment extends Fragment {
     private TimetableAdabter timetableAdabter;
     private TextView dayText;
     private TextView historyText;
+    private TextView fieldName ;
+    private TextView fieldCity ;
+    private TextView price ;
+    private TextView phone ;
     private LinearLayout innerDayHistoryLayout;
     private ViewFlipper daysFlipper;
     private Button reserveButton;
     private Context prfileContext;
+    private static final int FIELD_INFO_LOADER_ID = 1 ;
+    private String USGS_REQUEST_URL ;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_field, container, false);
+
+        USGS_REQUEST_URL = "http://192.168.43.172/api/getfieldbyid?field_id=" + LoginInfo.getFieldId() ;
+        prfileContext = getActivity();
         periodRecycler = (RecyclerView) rootView.findViewById(R.id.timetable_recycle_view);
         reserveButton = (Button) rootView.findViewById(R.id.reserve_button);
-        timetableAdabter = new TimetableAdabter(periodList, reserveButton);
+        timetableAdabter = new TimetableAdabter(periodList, reserveButton , prfileContext);
+        fieldName = (TextView) rootView.findViewById(R.id.field_name);
+        fieldCity = (TextView) rootView.findViewById(R.id.field_city);
+        price = (TextView) rootView.findViewById(R.id.price);
+        phone = (TextView) rootView.findViewById(R.id.phone);
         periodRecycler.setHasFixedSize(true);
         RecyclerView.LayoutManager periodLayout = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         periodRecycler.setLayoutManager(periodLayout);
@@ -59,27 +76,9 @@ public class FieldFragment extends Fragment {
         mSlideViewPager.setAdapter(sliderAdapter);
         TabLayout tabLayout = (TabLayout) rootView.findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(mSlideViewPager, true);
-
+        LoaderManager loaderManager = getLoaderManager();
+        loaderManager.initLoader(FIELD_INFO_LOADER_ID, null,  this);
         ImageButton mUpdateDialog = rootView.findViewById(R.id.btnedit);
-        mUpdateDialog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
-                final View mView = getLayoutInflater().inflate(R.layout.activity_main, null);
-                Button mUpdate = mView.findViewById(R.id.add_update);
-                mUpdate.setText("Update");
-                mBuilder.setView(mView);
-                final AlertDialog dialog = mBuilder.create();
-                dialog.show();
-                mUpdate.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(getContext(), "add Successfully", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-            }
-        });
         //Date and history
         daysFlipper = (ViewFlipper) rootView.findViewById(R.id.days_flipper);
         //Date and history
@@ -113,11 +112,6 @@ public class FieldFragment extends Fragment {
 
         }
 
-        //Date and time
-        openTime = Time.valueOf("04:00:00");
-        closeTime = Time.valueOf("12:00:00");
-
-
         //handling flipper
 
         ImageView leftArrowButton = (ImageView) rootView.findViewById(R.id.left_button);
@@ -144,8 +138,6 @@ public class FieldFragment extends Fragment {
                 daysFlipper.showNext();
             }
         });
-        getPeriod();
-        getDate();
         return rootView;
     }
 
@@ -153,24 +145,34 @@ public class FieldFragment extends Fragment {
     private void getPeriod() {
         Calendar cal = Calendar.getInstance();
         Calendar cal2 = Calendar.getInstance();
+        Calendar startCalc = Calendar.getInstance();
+        Calendar endCalc = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("HH:mm");
         cal2.setTime(closeTime);
         cal.setTime(openTime);
         while (!cal.equals(cal2)) {
             String newTime = df.format(cal.getTime());
+            for (int x = 0 ; x < reserveList.size() ; x++){
+               Time reserveStart = Time.valueOf(reserveList.get(x).getReserveStart());
+               Time reserveEnd = Time.valueOf(reserveList.get(x).getReserveEnd());
+               startCalc.setTime(reserveStart);
+               endCalc.setTime(reserveEnd);
+                if (cal.equals(startCalc)){
+                    while (!cal.equals(endCalc)){
+                        cal.add(Calendar.MINUTE, 30);
+                    }
+                    String star = df.format(startCalc.getTime());
+                    String end = df.format(endCalc.getTime());
+                    periodList.add(new PeriodTimes(star + " " + end , 2));
+                    newTime = df.format(endCalc.getTime());
+                }
+            }
             cal.add(Calendar.MINUTE, 30);
             String newTim = df.format(cal.getTime());
-            periodList.add(new PeriodTimes(newTime + " " + newTim, "lutti", 4));
+            periodList.add(new PeriodTimes(newTime + " " + newTim , 1));
 
         }
-
-
         timetableAdabter.notifyDataSetChanged();
-    }
-
-    private void getDate() {
-
-
     }
 
     public void onLeftClicked(View view) {
@@ -195,5 +197,28 @@ public class FieldFragment extends Fragment {
 
 
     }
+
+    @Override
+    public Loader<FieldInformations> onCreateLoader(int i, Bundle bundle) {
+        return new FieldInfoLoader(prfileContext , USGS_REQUEST_URL) ;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<FieldInformations> loader, FieldInformations fieldInformations) {
+        if (fieldInformations != null) {
+            fieldName.setText(fieldInformations.getFieldName());
+            fieldCity.setText(fieldInformations.getFieldCity());
+            price.setText(fieldInformations.getHourePrice());
+            phone.setText(fieldInformations.getOwnerPhone());
+            openTime = Time.valueOf(fieldInformations.getOpenTime());
+            closeTime = Time.valueOf(fieldInformations.getCloseTime());
+            reserveList = new ArrayList<>();
+            reserveList = fieldInformations.getReserveInfo() ;
+            getPeriod();
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<FieldInformations> loader) {}
 }
 

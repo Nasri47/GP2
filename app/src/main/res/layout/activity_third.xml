@@ -11,7 +11,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="64dp"
             android:orientation="vertical">
 
@@ -31,15 +31,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/sharp_account_circle_black_36" />
+                        android:layout_marginTop="8dp"
+                        android:drawableStart="@drawable/sharp_account_circle_black" />
 
                     <EditText
                         android:id="@+id/user_phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="8dp"
                         android:backgroundTint="@color/white"
-                        android:hint="Name"
+                        android:hint="@string/phone_number"
+                        android:inputType="phone"
                         android:maxLines="1" />
                 </LinearLayout>
 
@@ -51,15 +53,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/sharp_lock_black_36" />
+                        android:layout_marginTop="8dp"
+                        android:drawableStart="@drawable/sharp_lock_black" />
 
                     <EditText
                         android:id="@+id/user_pass"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="8dp"
                         android:backgroundTint="@color/white"
                         android:hint="Password"
+                        android:inputType="textPassword"
                         android:maxLines="1" />
                 </LinearLayout>
 

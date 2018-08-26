@@ -19,18 +19,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Bors on 8/10/2018.
+ * Created by Bors on 8/11/2018.
  */
 
-public class OwnerLoginUtils {
+public class ResearveRequistsUtils {
 
-    private static final String LOG_TAG = OwnerLoginUtils.class.getSimpleName();
-
-    private OwnerLoginUtils() {
+    private static final String LOG_TAG = FieldInfoUtils.class.getSimpleName();
+    private ResearveRequistsUtils() {
     }
 
-    private static LoginInfo extractFeatureFromJson(String ownerJSON) {
-        LoginInfo loginInfo = new LoginInfo();;
+    private static List<ResearvationsRequistsInfo> extractFeatureFromJson(String ownerJSON) {
+        List<ResearvationsRequistsInfo> reserveInfo = new ArrayList<>();
         if (TextUtils.isEmpty(ownerJSON)) {
             return null;
         }
@@ -39,26 +38,26 @@ public class OwnerLoginUtils {
 
             JSONObject baseJsonResponse = new JSONObject(ownerJSON);
             if (!baseJsonResponse.optBoolean("error")) {
-                JSONArray ownerInfoList = baseJsonResponse.getJSONArray("data");
-                for (int i = 0; i < ownerInfoList.length(); i++) {
-                    JSONObject ownerInfoListJSONObject = ownerInfoList.getJSONObject(i);
-                    int userId = ownerInfoListJSONObject.getInt("user_id");
-                    int fieldId = ownerInfoListJSONObject.getInt("field_id");
-                    int response = ownerInfoListJSONObject.getInt("response");
-                    loginInfo = new LoginInfo(response , fieldId , userId);
+                JSONArray reserveList = baseJsonResponse.getJSONArray("data");
+                for (int i = 0; i < reserveList.length(); i++) {
+                    JSONObject reserveListJSONObject = reserveList.getJSONObject(i);
+                    int fieldId = reserveListJSONObject.getInt("id");
+                    String userName = reserveListJSONObject.getString("user_name");
+                    String userPhone = reserveListJSONObject.getString("user_phone");
+                    String start = reserveListJSONObject.getString("reserve_frome");
+                    String end = reserveListJSONObject.getString("reserve_to");
+                    ResearvationsRequistsInfo reserveObj = new ResearvationsRequistsInfo(fieldId , start , end , userName , userPhone);
+                    reserveInfo.add(reserveObj);
                 }
-            }else {
-                int response = 0;
-                loginInfo = new LoginInfo(response);
             }
         } catch (JSONException e) {
 
             Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
         }
-        return loginInfo;
+        return reserveInfo;
     }
 
-    public static LoginInfo fetchfieldsData(String requestUrl) {
+    public static List<ResearvationsRequistsInfo> fetchfieldsData(String requestUrl) {
         // Create URL object
         URL url = createUrl(requestUrl);
 
@@ -71,7 +70,7 @@ public class OwnerLoginUtils {
         }
 
         // Extract relevant fields from the JSON response and create a list of {@link Earthquake}s
-        LoginInfo response = extractFeatureFromJson(jsonResponse);
+        List<ResearvationsRequistsInfo> response = extractFeatureFromJson(jsonResponse);
 
         // Return the list of {@link Earthquake}s
         return response;

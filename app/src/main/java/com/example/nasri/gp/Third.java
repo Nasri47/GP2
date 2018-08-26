@@ -15,7 +15,8 @@ public class Third extends AppCompatActivity implements LoaderManager.LoaderCall
 
     TextView phoneNumber ;
     TextView password ;
-    String response ;
+    int response ;
+    boolean flag = false ;
     private static final int LOGIN_LOADER_ID = 1 ;
     private String USGS_REQUEST_URL ;
     @Override
@@ -27,7 +28,7 @@ public class Third extends AppCompatActivity implements LoaderManager.LoaderCall
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent log = new Intent(Third.this, RegisterField.class);
+                Intent log = new Intent(Third.this, MainActivity.class);
                 startActivity(log);
             }
         });
@@ -44,6 +45,7 @@ public class Third extends AppCompatActivity implements LoaderManager.LoaderCall
 
     // login method
     public void login(View v){
+        flag = true ;
         phoneNumber = (TextView) findViewById(R.id.user_phone);
         password = (TextView) findViewById(R.id.user_pass) ;
         String phone = phoneNumber.getText().toString();
@@ -53,7 +55,6 @@ public class Third extends AppCompatActivity implements LoaderManager.LoaderCall
                     + "&password=" + pass;
         LoaderManager loaderManager = getLoaderManager();
         loaderManager.initLoader(LOGIN_LOADER_ID, null, this);
-
     }
 
     @Override
@@ -63,25 +64,27 @@ public class Third extends AppCompatActivity implements LoaderManager.LoaderCall
 
     @Override
     public void onLoadFinished(Loader<LoginInfo> loader, LoginInfo loginInfo) {
-
-        if(loginInfo != null ){
-            response = loginInfo.getResponse();
-        }
-        if (response.equalsIgnoreCase("OK")) {
-            final Intent log = new Intent(Third.this, Main2Activity.class);
-            startActivity(log);
-        }else if (response.equalsIgnoreCase("Wrong password ! please try again..")){
+        if (loginInfo != null) {
             password = (TextView) findViewById(R.id.user_pass);
-            password.clearComposingText();
-        }else if (response.equalsIgnoreCase("sorry ! this user is blocked frome using the app..")){
-            // Launch the block activity
-        }else if(response.equalsIgnoreCase("You dont have acount")){
-            // Make the hint visible
+            response = loginInfo.getResponse();
+            if (response == 1 && flag) {
+                loginInfo.setResponse(4);
+                flag = false ;
+                final Intent log = new Intent(Third.this, Main2Activity.class);
+                startActivity(log);
+                password.setText("");
+            } else if (response == 3) {
+                password.setText("");
+            } else if (response == 2) {
+                // Launch the block activity
+            } else if (response == 0) {
+                // Make the hint visible
+            }
         }
     }
 
     @Override
     public void onLoaderReset(Loader<LoginInfo> loader) {
-            response = "" ;
+        response = 4 ;
     }
 }

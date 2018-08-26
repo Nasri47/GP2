@@ -15,22 +15,22 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Bors on 8/10/2018.
+ * Created by Bors on 8/11/2018.
  */
 
-public class OwnerLoginUtils {
+public class FieldInfoUtils {
 
-    private static final String LOG_TAG = OwnerLoginUtils.class.getSimpleName();
-
-    private OwnerLoginUtils() {
+    private static final String LOG_TAG = FieldInfoUtils.class.getSimpleName();
+    private FieldInfoUtils() {
     }
 
-    private static LoginInfo extractFeatureFromJson(String ownerJSON) {
-        LoginInfo loginInfo = new LoginInfo();;
+    private static FieldInformations extractFeatureFromJson(String ownerJSON) {
+        FieldInformations fieldInfo = new FieldInformations();
         if (TextUtils.isEmpty(ownerJSON)) {
             return null;
         }
@@ -38,27 +38,48 @@ public class OwnerLoginUtils {
         try {
 
             JSONObject baseJsonResponse = new JSONObject(ownerJSON);
+            List<ResearvationsRequistsInfo> reserveInfo = new ArrayList<>();
+            ResearvationsRequistsInfo reservs ;
             if (!baseJsonResponse.optBoolean("error")) {
+                JSONArray reservesList = baseJsonResponse.getJSONArray("reserves");
                 JSONArray ownerInfoList = baseJsonResponse.getJSONArray("data");
                 for (int i = 0; i < ownerInfoList.length(); i++) {
                     JSONObject ownerInfoListJSONObject = ownerInfoList.getJSONObject(i);
-                    int userId = ownerInfoListJSONObject.getInt("user_id");
-                    int fieldId = ownerInfoListJSONObject.getInt("field_id");
-                    int response = ownerInfoListJSONObject.getInt("response");
-                    loginInfo = new LoginInfo(response , fieldId , userId);
+                    int fieldId = ownerInfoListJSONObject.getInt("id");
+                    String ownerName = ownerInfoListJSONObject.getString("owner_name");
+                    String fieldName = ownerInfoListJSONObject.getString("field_name");
+                    String fieldCity = ownerInfoListJSONObject.getString("field_city");
+                    String fieldSize = ownerInfoListJSONObject.getString("field_size");
+                    String hourPrice = ownerInfoListJSONObject.getString("field_hour_price");
+                    String phone = ownerInfoListJSONObject.getString("owner_phone");
+                    String openTime = ownerInfoListJSONObject.getString("open_time") ;
+                    String closeTime = ownerInfoListJSONObject.getString("close_time") ;
+                    for (int x = 0; x < reservesList.length(); x++) {
+                        JSONObject reservesObject = reservesList.getJSONObject(x);
+                        int reserveId = reservesObject.getInt("id");
+                        String reserveStart = reservesObject.getString("reserve_frome");
+                        String reserveEnd = reservesObject.getString("reserve_to");
+                        String userName = reservesObject.getString("user_name");
+                        String userPhone = reservesObject.getString("user_phone");
+                        reservs = new ResearvationsRequistsInfo(reserveId , reserveStart , reserveEnd ,
+                                                                userName , userPhone);
+                        reserveInfo.add(reservs);
+
+                    }
+                    fieldInfo = new FieldInformations(fieldId , fieldName , ownerName , fieldCity ,
+                            fieldSize , hourPrice , phone , openTime ,
+                            closeTime , reserveInfo);
                 }
-            }else {
-                int response = 0;
-                loginInfo = new LoginInfo(response);
+
             }
         } catch (JSONException e) {
 
             Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
         }
-        return loginInfo;
+        return fieldInfo;
     }
 
-    public static LoginInfo fetchfieldsData(String requestUrl) {
+    public static FieldInformations fetchfieldsData(String requestUrl) {
         // Create URL object
         URL url = createUrl(requestUrl);
 
@@ -71,7 +92,7 @@ public class OwnerLoginUtils {
         }
 
         // Extract relevant fields from the JSON response and create a list of {@link Earthquake}s
-        LoginInfo response = extractFeatureFromJson(jsonResponse);
+        FieldInformations response = extractFeatureFromJson(jsonResponse);
 
         // Return the list of {@link Earthquake}s
         return response;

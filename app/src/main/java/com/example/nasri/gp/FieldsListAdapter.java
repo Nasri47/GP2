@@ -49,8 +49,7 @@ public class FieldsListAdapter extends RecyclerView.Adapter<FieldsListAdapter.My
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, PlayerActivity.class);
-                i.putExtra("fieldName", fieldItems.get(position).getfieldName());
-                i.putExtra("fieldlocation", fieldItems.get(position).getfieldCity());
+                i.putExtra("fieldId", fieldItems.get(position).getFieldId());
                 context.startActivity(i);
             }
         });
