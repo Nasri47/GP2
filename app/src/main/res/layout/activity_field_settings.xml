@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.nasri.gp.FieldSettings">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Switch
+            android:id="@+id/switchAB"
+            android:checked="true"
+            style="@style/sitingsStyle"
+            android:text="available"/>
+
+        <TextView
+            android:id="@+id/edit_info"
+            style="@style/sitingsStyle"
+            android:text="Edit field informations" />
+
+        <TextView
+            android:id="@+id/change_pass"
+            style="@style/sitingsStyle"
+            android:text="Change Password" />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

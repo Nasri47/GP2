@@ -24,6 +24,8 @@ import java.util.List;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -73,18 +75,6 @@ public class FieldsList extends AppCompatActivity implements LoaderManager.Loade
                 return false;
             }
         });
-        ImageButton btnMap = findViewById(R.id.btn_map);
-        btnMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(FieldsList.this,MapsActivity.class);
-                startActivity(i);
-            }
-        });
-        getPeriod() ;
-
-        //getPeriod() ;
-
     }
 
 
@@ -102,6 +92,11 @@ public class FieldsList extends AppCompatActivity implements LoaderManager.Loade
         fieldItems.clear();
         if(fieldItem != null && !fieldItem.isEmpty()){
             fieldItems.addAll(fieldItem);
+        }else {
+                LinearLayout empty = (LinearLayout) findViewById(R.id.empty);
+                empty.setVisibility(View.VISIBLE);
+                TextView empteText = (TextView) findViewById(R.id.empty_text);
+                empteText.setText("Nothing to show !");
         }
     }
 

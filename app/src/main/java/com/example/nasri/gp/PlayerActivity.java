@@ -43,6 +43,7 @@ public class PlayerActivity extends AppCompatActivity implements LoaderManager.L
     private TextView fieldCity;
     private TextView fieldPhone;
     private TextView fieldPrice;
+    private View period ;
     static int fieldId ;
     private LinearLayout innerDayHistoryLayout;
     private ViewFlipper daysFlipper;
@@ -58,7 +59,8 @@ public class PlayerActivity extends AppCompatActivity implements LoaderManager.L
         fieldPhone = (TextView) findViewById(R.id.player_phone);
         fieldPrice = (TextView) findViewById(R.id.player_price);
         periodRecycler = (RecyclerView) findViewById(R.id.timetable_recycle_view);
-        reserveButton = (Button) findViewById(R.id.reserve_button);
+        reserveButton = (Button) findViewById(R.id.reserve_butt);
+        period = findViewById(R.id.time_table) ;
         timetableAdabter = new TimetableAdabter(periodList , reserveButton , this);
         periodRecycler.setHasFixedSize(true);
         RecyclerView.LayoutManager periodLayout = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -218,14 +220,25 @@ public class PlayerActivity extends AppCompatActivity implements LoaderManager.L
         if (fieldInformations != null) {
             fieldName.setText(fieldInformations.getFieldName());
             fieldCity.setText(fieldInformations.getFieldCity());
-            fieldPrice.setText(fieldInformations.getHourePrice());
             fieldPhone.setText(fieldInformations.getOwnerPhone());
-            openTime = Time.valueOf(fieldInformations.getOpenTime());
-            closeTime = Time.valueOf(fieldInformations.getCloseTime());
             fieldId = fieldInformations.getFieldId() ;
-            reserveList = new ArrayList<>();
-            reserveList = fieldInformations.getReserveInfo() ;
-            getPeriod();
+            if (!fieldInformations.getOpenTime().equals("00:00:00") && !fieldInformations.getCloseTime().equals("00:00:00")){
+                openTime = Time.valueOf(fieldInformations.getOpenTime());
+                closeTime = Time.valueOf(fieldInformations.getCloseTime());
+                reserveList = new ArrayList<>();
+                reserveList = fieldInformations.getReserveInfo() ;
+                getPeriod();
+            }else {
+                reserveButton.setVisibility(View.GONE);
+                period.setVisibility(View.GONE);
+                daysFlipper.setVisibility(View.GONE);
+            }
+
+            if (!fieldInformations.getHourePrice().equals(0)){
+                fieldPrice.setText(fieldInformations.getHourePrice() + " SDG");
+            }else {
+                fieldPrice.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -233,28 +246,4 @@ public class PlayerActivity extends AppCompatActivity implements LoaderManager.L
     public void onLoaderReset(Loader<FieldInformations> loader) {
 
     }
-/*
-    @NonNull
-    @Override
-    public Loader<FieldInformations> onCreateLoader(int id, @Nullable Bundle args) {
-        return new FieldInfoLoader(this , USGS_REQUEST_URL) ;
-    }
-
-    @Override
-    public void onLoadFinished(@NonNull Loader<FieldInformations> loader, FieldInformations data) {
-        if (data != null) {
-            fieldName.setText(data.getFieldName());
-            fieldCity.setText(data.getFieldCity());
-            fieldPrice.setText(data.getHourePrice());
-            fieldPhone.setText(data.getOwnerPhone());
-            openTime = Time.valueOf(data.getOpenTime());
-            closeTime = Time.valueOf(data.getCloseTime());
-            reserveList = new ArrayList<>();
-            reserveList = data.getReserveInfo() ;
-            getPeriod();
-        }
-    }
-
-    @Override
-    public void onLoaderReset(@NonNull Loader<FieldInformations> loader) {}*/
 }

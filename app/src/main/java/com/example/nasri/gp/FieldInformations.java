@@ -16,13 +16,17 @@ public class FieldInformations {
     String ownerPhone ;
     String openTime ;
     String closeTime ;
+    long fieldLat ;
+    long fieldLng ;
     List<ResearvationsRequistsInfo> reserveInfo = new ArrayList<>();
     int fieldId ;
     int response ;
+    int suspendState ;
 
     public FieldInformations(int id , String fName , String oName , String fCity ,
                              String fSize , String price , String oPhone ,
-                             String open , String close , List<ResearvationsRequistsInfo> reserve){
+                             String open , String close , List<ResearvationsRequistsInfo> reserve ,
+                             long lat , long lng , int suspend){
         fieldName = fName ;
         ownerName = oName ;
         fieldCity = fCity ;
@@ -32,7 +36,10 @@ public class FieldInformations {
         openTime = open ;
         closeTime = close ;
         reserveInfo = reserve ;
+        fieldLat = lat ;
+        fieldLng = lng ;
         fieldId = id ;
+        suspendState = suspend ;
     }
 
     public FieldInformations(){
@@ -58,4 +65,7 @@ public class FieldInformations {
     public List<ResearvationsRequistsInfo> getReserveInfo(){return reserveInfo;}
     public int getFieldId(){return fieldId;}
     public int getResponse(){return response;}
+    public long getFieldLat(){return fieldLat;}
+    public long getFieldLng(){return fieldLng;}
+    public int getSuspendState(){return suspendState;}
 }

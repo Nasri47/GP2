@@ -15,18 +15,17 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Bors on 8/11/2018.
+ * Created by Bors on 8/28/2018.
  */
 
-public class FieldInfoUtils {
+public class EditFieldInfoUtils {
 
     private static final String LOG_TAG = FieldInfoUtils.class.getSimpleName();
-    private FieldInfoUtils() {
+    private EditFieldInfoUtils() {
     }
 
     private static FieldInformations extractFeatureFromJson(String ownerJSON) {
@@ -38,40 +37,12 @@ public class FieldInfoUtils {
         try {
 
             JSONObject baseJsonResponse = new JSONObject(ownerJSON);
-            List<ResearvationsRequistsInfo> reserveInfo = new ArrayList<>();
-            ResearvationsRequistsInfo reservs ;
             if (!baseJsonResponse.optBoolean("error")) {
-                JSONArray reservesList = baseJsonResponse.getJSONArray("reserves");
                 JSONArray ownerInfoList = baseJsonResponse.getJSONArray("data");
                 for (int i = 0; i < ownerInfoList.length(); i++) {
                     JSONObject ownerInfoListJSONObject = ownerInfoList.getJSONObject(i);
                     int fieldId = ownerInfoListJSONObject.getInt("id");
-                    int suspendState = ownerInfoListJSONObject.getInt("block_state") ;
-                    String ownerName = ownerInfoListJSONObject.getString("owner_name");
-                    String fieldName = ownerInfoListJSONObject.getString("field_name");
-                    String fieldCity = ownerInfoListJSONObject.getString("field_city");
-                    String fieldSize = ownerInfoListJSONObject.getString("field_size");
-                    String hourPrice = ownerInfoListJSONObject.getString("field_hour_price");
-                    String phone = ownerInfoListJSONObject.getString("owner_phone");
-                    String openTime = ownerInfoListJSONObject.getString("open_time") ;
-                    String closeTime = ownerInfoListJSONObject.getString("close_time") ;
-                    long lat = ownerInfoListJSONObject.getLong("field_lat") ;
-                    long lng = ownerInfoListJSONObject.getLong("field_lng") ;
-                    for (int x = 0; x < reservesList.length(); x++) {
-                        JSONObject reservesObject = reservesList.getJSONObject(x);
-                        int reserveId = reservesObject.getInt("id");
-                        String reserveStart = reservesObject.getString("reserve_frome");
-                        String reserveEnd = reservesObject.getString("reserve_to");
-                        String userName = reservesObject.getString("user_name");
-                        String userPhone = reservesObject.getString("user_phone");
-                        reservs = new ResearvationsRequistsInfo(reserveId , reserveStart , reserveEnd ,
-                                                                userName , userPhone);
-                        reserveInfo.add(reservs);
-
-                    }
-                    fieldInfo = new FieldInformations(fieldId , fieldName , ownerName , fieldCity ,
-                            fieldSize , hourPrice , phone , openTime ,
-                            closeTime , reserveInfo , lat , lng , suspendState);
+                    fieldInfo = new FieldInformations(fieldId);
                 }
 
             }
@@ -81,6 +52,7 @@ public class FieldInfoUtils {
         }
         return fieldInfo;
     }
+
 
     public static FieldInformations fetchfieldsData(String requestUrl) {
         // Create URL object

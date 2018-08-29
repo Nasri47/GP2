@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -34,8 +35,9 @@ public class FieldFragment extends Fragment implements LoaderManager.LoaderCallb
     private SliderAdapter sliderAdapter;
     private Time openTime;
     private Time closeTime;
+    public static int fieldId ;
     private List<ResearvationsRequistsInfo> reserveList ;
-
+    private View period ;
     private List<PeriodTimes> periodList = new ArrayList<>();
     private List<String> daysList = new ArrayList<>();
     private List<String> historyList = new ArrayList<>();
@@ -48,6 +50,15 @@ public class FieldFragment extends Fragment implements LoaderManager.LoaderCallb
     private TextView price ;
     private TextView phone ;
     private LinearLayout innerDayHistoryLayout;
+    public static String fieldN ;
+    public static String fieldP ;
+    public static String fieldS ;
+    public static String fieldC ;
+    public static String fieldON ;
+    public static String fieldPN ;
+    public static String fieldOT ;
+    public static String fieldCT ;
+    public static int suspend ;
     private ViewFlipper daysFlipper;
     private Button reserveButton;
     private Context prfileContext;
@@ -66,6 +77,7 @@ public class FieldFragment extends Fragment implements LoaderManager.LoaderCallb
         fieldCity = (TextView) rootView.findViewById(R.id.field_city);
         price = (TextView) rootView.findViewById(R.id.price);
         phone = (TextView) rootView.findViewById(R.id.phone);
+        period = rootView.findViewById(R.id.owner_period) ;
         periodRecycler.setHasFixedSize(true);
         RecyclerView.LayoutManager periodLayout = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         periodRecycler.setLayoutManager(periodLayout);
@@ -78,7 +90,15 @@ public class FieldFragment extends Fragment implements LoaderManager.LoaderCallb
         tabLayout.setupWithViewPager(mSlideViewPager, true);
         LoaderManager loaderManager = getLoaderManager();
         loaderManager.initLoader(FIELD_INFO_LOADER_ID, null,  this);
-        ImageButton mUpdateDialog = rootView.findViewById(R.id.btnedit);
+        TextView mUpdateDialog = rootView.findViewById(R.id.btnedit);
+        mUpdateDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent log = new Intent(getContext() , EditFieldInfo.class);
+                startActivity(log);
+            }
+        });
+
         //Date and history
         daysFlipper = (ViewFlipper) rootView.findViewById(R.id.days_flipper);
         //Date and history
@@ -150,6 +170,7 @@ public class FieldFragment extends Fragment implements LoaderManager.LoaderCallb
         SimpleDateFormat df = new SimpleDateFormat("HH:mm");
         cal2.setTime(closeTime);
         cal.setTime(openTime);
+        int test = 0 ;
         while (!cal.equals(cal2)) {
             String newTime = df.format(cal.getTime());
             for (int x = 0 ; x < reserveList.size() ; x++){
@@ -206,15 +227,31 @@ public class FieldFragment extends Fragment implements LoaderManager.LoaderCallb
     @Override
     public void onLoadFinished(Loader<FieldInformations> loader, FieldInformations fieldInformations) {
         if (fieldInformations != null) {
+            fieldId = fieldInformations.getFieldId() ;
             fieldName.setText(fieldInformations.getFieldName());
             fieldCity.setText(fieldInformations.getFieldCity());
-            price.setText(fieldInformations.getHourePrice());
+            price.setText(fieldInformations.getHourePrice() + " SDG");
             phone.setText(fieldInformations.getOwnerPhone());
-            openTime = Time.valueOf(fieldInformations.getOpenTime());
-            closeTime = Time.valueOf(fieldInformations.getCloseTime());
-            reserveList = new ArrayList<>();
-            reserveList = fieldInformations.getReserveInfo() ;
-            getPeriod();
+            fieldN = fieldInformations.getFieldName() ;
+            fieldON = fieldInformations.getOwnerName() ;
+            fieldP = fieldInformations.getHourePrice() ;
+            fieldS = fieldInformations.getFieldSize() ;
+            fieldC = fieldInformations.getFieldCity() ;
+            fieldOT = fieldInformations.getOpenTime() ;
+            fieldCT = fieldInformations.getCloseTime() ;
+            fieldPN = fieldInformations.getOwnerPhone() ;
+            suspend = fieldInformations.getSuspendState() ;
+            if (!fieldInformations.getOpenTime().equals("00:00:00") && !fieldInformations.getCloseTime().equals("00:00:00")){
+                openTime = Time.valueOf(fieldInformations.getOpenTime());
+                closeTime = Time.valueOf(fieldInformations.getCloseTime());
+                reserveList = new ArrayList<>();
+                reserveList = fieldInformations.getReserveInfo() ;
+                getPeriod();
+            }else {
+                reserveButton.setVisibility(View.GONE);
+                period.setVisibility(View.GONE);
+                daysFlipper.setVisibility(View.GONE);
+            }
         }
     }
 
