@@ -59,6 +59,7 @@ public class FieldFragment extends Fragment implements LoaderManager.LoaderCallb
     public static String fieldOT ;
     public static String fieldCT ;
     public static int suspend ;
+    public static String suspendResons ;
     private ViewFlipper daysFlipper;
     private Button reserveButton;
     private Context prfileContext;
@@ -168,9 +169,9 @@ public class FieldFragment extends Fragment implements LoaderManager.LoaderCallb
         Calendar startCalc = Calendar.getInstance();
         Calendar endCalc = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("HH:mm");
+        periodList.clear();
         cal2.setTime(closeTime);
         cal.setTime(openTime);
-        int test = 0 ;
         while (!cal.equals(cal2)) {
             String newTime = df.format(cal.getTime());
             for (int x = 0 ; x < reserveList.size() ; x++){
@@ -227,35 +228,35 @@ public class FieldFragment extends Fragment implements LoaderManager.LoaderCallb
     @Override
     public void onLoadFinished(Loader<FieldInformations> loader, FieldInformations fieldInformations) {
         if (fieldInformations != null) {
-            fieldId = fieldInformations.getFieldId() ;
-            fieldName.setText(fieldInformations.getFieldName());
-            fieldCity.setText(fieldInformations.getFieldCity());
-            price.setText(fieldInformations.getHourePrice() + " SDG");
-            phone.setText(fieldInformations.getOwnerPhone());
-            fieldN = fieldInformations.getFieldName() ;
-            fieldON = fieldInformations.getOwnerName() ;
-            fieldP = fieldInformations.getHourePrice() ;
-            fieldS = fieldInformations.getFieldSize() ;
-            fieldC = fieldInformations.getFieldCity() ;
-            fieldOT = fieldInformations.getOpenTime() ;
-            fieldCT = fieldInformations.getCloseTime() ;
-            fieldPN = fieldInformations.getOwnerPhone() ;
-            suspend = fieldInformations.getSuspendState() ;
-            if (!fieldInformations.getOpenTime().equals("00:00:00") && !fieldInformations.getCloseTime().equals("00:00:00")){
-                openTime = Time.valueOf(fieldInformations.getOpenTime());
-                closeTime = Time.valueOf(fieldInformations.getCloseTime());
-                reserveList = new ArrayList<>();
-                reserveList = fieldInformations.getReserveInfo() ;
-                getPeriod();
-            }else {
-                reserveButton.setVisibility(View.GONE);
-                period.setVisibility(View.GONE);
-                daysFlipper.setVisibility(View.GONE);
-            }
+                fieldId = fieldInformations.getFieldId() ;
+                fieldName.setText(fieldInformations.getFieldName());
+                fieldCity.setText(fieldInformations.getFieldCity());
+                price.setText(fieldInformations.getHourePrice() + " SDG");
+                phone.setText(fieldInformations.getOwnerPhone());
+                fieldN = fieldInformations.getFieldName() ;
+                fieldON = fieldInformations.getOwnerName() ;
+                fieldP = fieldInformations.getHourePrice() ;
+                fieldS = fieldInformations.getFieldSize() ;
+                fieldC = fieldInformations.getFieldCity() ;
+                fieldOT = fieldInformations.getOpenTime() ;
+                fieldCT = fieldInformations.getCloseTime() ;
+                fieldPN = fieldInformations.getOwnerPhone() ;
+                suspend = fieldInformations.getSuspendState() ;
+                if (!fieldInformations.getOpenTime().equals("00:00:00") && !fieldInformations.getCloseTime().equals("00:00:00")){
+                    openTime = Time.valueOf(fieldInformations.getOpenTime());
+                    closeTime = Time.valueOf(fieldInformations.getCloseTime());
+                    reserveList = new ArrayList<>();
+                    reserveList = fieldInformations.getReserveInfo() ;
+                    getPeriod();
+                }else {
+                    reserveButton.setVisibility(View.GONE);
+                    period.setVisibility(View.GONE);
+                    daysFlipper.setVisibility(View.GONE);
+                }
         }
     }
 
     @Override
-    public void onLoaderReset(Loader<FieldInformations> loader) {}
+    public void onLoaderReset(Loader<FieldInformations> loader) {periodList.clear();}
 }
 

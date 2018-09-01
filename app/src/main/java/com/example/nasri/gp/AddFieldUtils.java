@@ -8,19 +8,26 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Bors on 8/16/2018.
  */
 
-public class    AddFieldUtils {
+public class AddFieldUtils {
 
     private static final String LOG_TAG = FieldsListUtils.class.getSimpleName();
 
@@ -85,7 +92,6 @@ public class    AddFieldUtils {
     }
 
     private static String makeHttpRequest(URL url) throws IOException {
-        System.out.println("fffffffffffffffffffffffffffff 111");
         String jsonResponse = "";
 
         // If the URL is null, then return early.
@@ -100,7 +106,22 @@ public class    AddFieldUtils {
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setReadTimeout(10000 /* milliseconds */);
             urlConnection.setConnectTimeout(15000 /* milliseconds */);
-            urlConnection.setRequestMethod("GET");
+            urlConnection.setRequestMethod("POST");
+            urlConnection.setDoInput(true);
+            urlConnection.setDoOutput(true);
+            List<ParamValues> params = new ArrayList<ParamValues>();
+            params.add(new ParamValues("owner_name", MainActivity.oName));
+            params.add(new ParamValues("field_name", MainActivity.fName));
+            params.add(new ParamValues("field_city", MainActivity.fLocate));
+            params.add(new ParamValues("owner_phone", MainActivity.fPhone));
+            params.add(new ParamValues("password", MainActivity.fPass));
+            OutputStream os = urlConnection.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(
+                    new OutputStreamWriter(os, "UTF-8"));
+            writer.write(getQuery(params));
+            writer.flush();
+            writer.close();
+            os.close();
             urlConnection.connect();
             // If the request was successful (response code 200),
             // then read the input stream and parse the response.
@@ -139,5 +160,25 @@ public class    AddFieldUtils {
             }
         }
         return output.toString();
+    }
+
+    private static String getQuery(List<ParamValues> params) throws UnsupportedEncodingException
+    {
+        StringBuilder result = new StringBuilder();
+        boolean first = true;
+
+        for (ParamValues pair : params)
+        {
+            if (first)
+                first = false;
+            else
+                result.append("&");
+
+            result.append(URLEncoder.encode(pair.getParametre(), "UTF-8"));
+            result.append("=");
+            result.append(URLEncoder.encode(pair.getValue(), "UTF-8"));
+        }
+
+        return result.toString();
     }
 }

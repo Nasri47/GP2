@@ -59,8 +59,10 @@ public class ReservationFragment extends Fragment implements LoaderManager.Loade
         if(data != null && !data.isEmpty()){
             reservationDetails.addAll(data);
         }else{
-            emptyLayout.setVisibility(View.VISIBLE);
-            emptyText.setText("Nothing to show !");
+            if (reservationDetails.isEmpty()) {
+                emptyLayout.setVisibility(View.VISIBLE);
+                emptyText.setText("Nothing to show !");
+            }
         }
     }
 

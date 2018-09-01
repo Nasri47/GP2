@@ -2,13 +2,13 @@ package com.example.nasri.gp;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.LoaderManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.Loader;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -25,6 +25,9 @@ public class FieldSettings extends AppCompatActivity implements LoaderManager.Lo
 
     Switch availability ;
     FieldFragment fieldFragment ;
+    private static String USGS_REQUEST_URL =
+            "http://192.168.43.172/api/fieldslist/";
+    private static final int FIELD_LIST_LOADER_ID = 1 ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,15 @@ public class FieldSettings extends AppCompatActivity implements LoaderManager.Lo
             @Override
             public void onClick(View view) {
                 Intent log = new Intent(FieldSettings.this, EditFieldInfo.class);
+                startActivity(log);
+            }
+        });
+
+        TextView changePass = (TextView) findViewById(R.id.change_pass);
+        changePass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent log = new Intent(FieldSettings.this, ChangePass.class);
                 startActivity(log);
             }
         });
@@ -78,12 +90,12 @@ public class FieldSettings extends AppCompatActivity implements LoaderManager.Lo
         alertDialog.setCustomTitle(title);
 
         // Set Message
-        EditText msg = new EditText(this);
+        final EditText masg = new EditText(this);
         // Message Properties
-        msg.setHint("Why your filed is not available ?");
-        msg.setSingleLine(false);
-        msg.setTextColor(Color.BLACK);
-        alertDialog.setView(msg);
+        masg.setHint("Why your filed is not available ?");
+        masg.setSingleLine(false);
+        masg.setTextColor(Color.BLACK);
+        alertDialog.setView(masg);
 
         // Set Button
         // you can more buttons
@@ -95,8 +107,15 @@ public class FieldSettings extends AppCompatActivity implements LoaderManager.Lo
 
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE,"CLOSE FIELD", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                // Perform Action on Button
-            }
+                if (!masg.getText().toString().equals("")){
+                    USGS_REQUEST_URL = "http://192.168.43.172/api/closefield?field_id=" + LoginInfo.fieldId + "&suspend_resons=" + masg.getText().toString();
+                    startLoader();
+                }else {
+                    availability.setChecked(true);
+                    Toast.makeText(getApplication(), "You have to write reasons for closing your field", Toast.LENGTH_LONG)
+                            .show();
+                }
+                 }
         });
 
         new Dialog(getApplicationContext());
@@ -120,16 +139,23 @@ public class FieldSettings extends AppCompatActivity implements LoaderManager.Lo
     @NonNull
     @Override
     public Loader<FieldInformations> onCreateLoader(int id, @Nullable Bundle args) {
-        return null;
+        return new CloseFieldLoder(this , USGS_REQUEST_URL) ;
     }
+
 
     @Override
     public void onLoadFinished(@NonNull Loader<FieldInformations> loader, FieldInformations data) {
-
+        Intent log = new Intent(FieldSettings.this, Main2Activity.class);
+        startActivity(log);
     }
 
     @Override
     public void onLoaderReset(@NonNull Loader<FieldInformations> loader) {
 
+    }
+
+    public void startLoader(){
+        LoaderManager loaderManager = getLoaderManager();
+        loaderManager.initLoader(FIELD_LIST_LOADER_ID, null, this);
     }
 }

@@ -55,6 +55,7 @@ public class FieldInfoUtils {
                     String phone = ownerInfoListJSONObject.getString("owner_phone");
                     String openTime = ownerInfoListJSONObject.getString("open_time") ;
                     String closeTime = ownerInfoListJSONObject.getString("close_time") ;
+                    String resons = ownerInfoListJSONObject.getString("suspend_resons");
                     long lat = ownerInfoListJSONObject.getLong("field_lat") ;
                     long lng = ownerInfoListJSONObject.getLong("field_lng") ;
                     for (int x = 0; x < reservesList.length(); x++) {
@@ -71,7 +72,7 @@ public class FieldInfoUtils {
                     }
                     fieldInfo = new FieldInformations(fieldId , fieldName , ownerName , fieldCity ,
                             fieldSize , hourPrice , phone , openTime ,
-                            closeTime , reserveInfo , lat , lng , suspendState);
+                            closeTime , reserveInfo , lat , lng , suspendState , resons);
                 }
 
             }

@@ -34,6 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="8dp"
+                android:backgroundTint="@color/colorPrimaryDark"
                 android:drawablePadding="16dp"
                 android:hint="owner name"
                 android:inputType="text" />
@@ -55,6 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                android:backgroundTint="@color/colorPrimaryDark"
                 android:layout_marginTop="8dp"
                 android:drawablePadding="16dp"
                 android:hint="Name of The Field"
@@ -78,6 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="8dp"
+                android:backgroundTint="@color/colorPrimaryDark"
                 android:layout_weight="1"
                 android:drawablePadding="16dp"
                 android:hint="Location of The Field"
@@ -101,6 +104,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="8dp"
+                android:backgroundTint="@color/colorPrimaryDark"
                 android:drawablePadding="16dp"
                 android:hint="Phone"
                 android:inputType="phone" />
@@ -123,6 +127,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="8dp"
+                android:backgroundTint="@color/colorPrimaryDark"
                 android:drawablePadding="16dp"
                 android:hint="Password"
                 android:inputType="textPassword" />
@@ -145,6 +150,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="8dp"
                 android:drawablePadding="16dp"
+                android:backgroundTint="@color/colorPrimaryDark"
                 android:hint="Confirm Password"
                 android:inputType="textPassword" />
         </LinearLayout>

@@ -60,8 +60,10 @@ public class ComplaintsFragment extends Fragment implements LoaderManager.Loader
         if(data != null && !data.isEmpty()){
             complaintDetails.addAll(data);
         }else{
-            emptyLayout.setVisibility(View.VISIBLE);
-            emptyText.setText("Nothing to show !");
+            if (complaintDetails.isEmpty()) {
+                emptyLayout.setVisibility(View.VISIBLE);
+                emptyText.setText("Nothing to show !");
+            }
         }
     }
 

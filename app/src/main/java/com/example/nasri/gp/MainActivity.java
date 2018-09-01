@@ -15,14 +15,19 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<FieldInformations>{
 
-    FieldsList mFieldList = new FieldsList();
     EditText mFieldName;
     EditText ownerNmae ;
     EditText mFieldLocation ;
     EditText mFieldPhone;
     EditText mFiledPass;
+    EditText mFieldConfPass ;
+    static String fName ;
+    static String oName ;
+    static String fLocate ;
+    static String fPhone ;
+    static String fPass ;
     private String USGS_REQUEST_URL ;
-    private static final int FIELD_LIST_LOADER_ID = 1 ;
+    private int FIELD_LIST_LOADER_ID = 1 ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,16 +37,34 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mFieldLocation = (EditText) findViewById(R.id.field_location);
         mFieldPhone = (EditText) findViewById(R.id.field_phone);
         mFiledPass = (EditText) findViewById(R.id.password_field);
+        mFieldConfPass = (EditText) findViewById(R.id.conf_pass);
          }
 
     public void addField(View v){
-        USGS_REQUEST_URL =
-                "http://192.168.43.172/api/registerfield?owner_name=" + ownerNmae.getText().toString() +
-                        "&field_name=" + mFieldName.getText().toString() + "&field_city=" + mFieldLocation.getText().toString()
-                        + "&owner_phone=" + mFieldPhone.getText().toString() + "&password=" + mFiledPass.getText().toString();
-        //Toast.makeText(this , "add Successfully", Toast.LENGTH_LONG).show();
-        LoaderManager loaderManager = getLoaderManager();
-        loaderManager.initLoader(FIELD_LIST_LOADER_ID, null, this);
+        if (!mFieldName.getText().toString().equals("")&& !ownerNmae.getText().toString().equals("")&&
+                !mFieldLocation.getText().toString().equals("")&& !mFiledPass.getText().toString().equals("")&&
+                !mFieldPhone.getText().toString().equals("")){
+            if (mFiledPass.getText().toString().equals(mFieldConfPass.getText().toString())){
+                USGS_REQUEST_URL =
+                        "http://192.168.43.172/api/registerfield/";
+                fName = mFieldName.getText().toString();
+                oName = ownerNmae.getText().toString();
+                fPhone = mFieldPhone.getText().toString();
+                fPass = mFiledPass.getText().toString();
+                fLocate = mFieldLocation.getText().toString();
+                LoaderManager loaderManager = getLoaderManager();
+                loaderManager.initLoader(FIELD_LIST_LOADER_ID, null, this);
+            }else {
+                Toast.makeText(getApplication(), "Password you entered dos not match, please try again", Toast.LENGTH_LONG)
+                        .show();
+                mFieldConfPass.setText("");
+            }
+
+        }else{
+            Toast.makeText(getApplication(), "Please fill all the informations ", Toast.LENGTH_LONG)
+                    .show();
+        }
+        FIELD_LIST_LOADER_ID++;
     }
 
     @Override
@@ -60,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             mFieldPhone.setText("");
             mFiledPass.setText("");
             ownerNmae.setText("");
+            mFieldConfPass.setText("");
         }else {
             mFieldPhone.setText("");
             Toast.makeText(getApplication(), "This phone number already used !", Toast.LENGTH_LONG)

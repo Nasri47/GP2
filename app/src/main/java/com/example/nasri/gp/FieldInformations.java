@@ -16,6 +16,7 @@ public class FieldInformations {
     String ownerPhone ;
     String openTime ;
     String closeTime ;
+    String suspendResons ;
     long fieldLat ;
     long fieldLng ;
     List<ResearvationsRequistsInfo> reserveInfo = new ArrayList<>();
@@ -26,7 +27,7 @@ public class FieldInformations {
     public FieldInformations(int id , String fName , String oName , String fCity ,
                              String fSize , String price , String oPhone ,
                              String open , String close , List<ResearvationsRequistsInfo> reserve ,
-                             long lat , long lng , int suspend){
+                             long lat , long lng , int suspend , String resons){
         fieldName = fName ;
         ownerName = oName ;
         fieldCity = fCity ;
@@ -36,6 +37,7 @@ public class FieldInformations {
         openTime = open ;
         closeTime = close ;
         reserveInfo = reserve ;
+        suspendResons = resons ;
         fieldLat = lat ;
         fieldLng = lng ;
         fieldId = id ;
@@ -53,6 +55,12 @@ public class FieldInformations {
         fieldId = id ;
     }
 
+    public FieldInformations(int id , int suspend , String resons){
+        fieldId = id ;
+        suspendState = suspend ;
+        suspendResons = resons ;
+    }
+
 
     public String getFieldName(){return fieldName;}
     public String getOwnerName(){return ownerName;}
@@ -68,4 +76,5 @@ public class FieldInformations {
     public long getFieldLat(){return fieldLat;}
     public long getFieldLng(){return fieldLng;}
     public int getSuspendState(){return suspendState;}
+    public String getSuspendResons(){return suspendResons;}
 }

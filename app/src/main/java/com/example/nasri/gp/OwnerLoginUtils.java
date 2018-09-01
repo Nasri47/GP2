@@ -8,12 +8,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +35,7 @@ public class OwnerLoginUtils {
     }
 
     private static LoginInfo extractFeatureFromJson(String ownerJSON) {
-        LoginInfo loginInfo = new LoginInfo();;
+        LoginInfo loginInfo = new LoginInfo();
         if (TextUtils.isEmpty(ownerJSON)) {
             return null;
         }
@@ -44,8 +49,10 @@ public class OwnerLoginUtils {
                     JSONObject ownerInfoListJSONObject = ownerInfoList.getJSONObject(i);
                     int userId = ownerInfoListJSONObject.getInt("user_id");
                     int fieldId = ownerInfoListJSONObject.getInt("field_id");
+                    int suspendState = ownerInfoListJSONObject.getInt("block_state");
+                    String suspendResons = ownerInfoListJSONObject.getString("suspend_resons");
                     int response = ownerInfoListJSONObject.getInt("response");
-                    loginInfo = new LoginInfo(response , fieldId , userId);
+                    loginInfo = new LoginInfo(response , fieldId , userId , suspendState , suspendResons);
                 }
             }else {
                 int response = 0;
@@ -99,10 +106,23 @@ public class OwnerLoginUtils {
         HttpURLConnection urlConnection = null;
         InputStream inputStream = null;
         try {
+            LoginInfo loginInfo = new LoginInfo();
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setReadTimeout(10000 /* milliseconds */);
             urlConnection.setConnectTimeout(15000 /* milliseconds */);
-            urlConnection.setRequestMethod("GET");
+            urlConnection.setRequestMethod("POST");
+            urlConnection.setDoInput(true);
+            urlConnection.setDoOutput(true);
+            List<ParamValues> params = new ArrayList<ParamValues>();
+            params.add(new ParamValues("owner_phone", Third.phone));
+            params.add(new ParamValues("password", Third.pass));
+            OutputStream os = urlConnection.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(
+                    new OutputStreamWriter(os, "UTF-8"));
+            writer.write(getQuery(params));
+            writer.flush();
+            writer.close();
+            os.close();
             urlConnection.connect();
             // If the request was successful (response code 200),
             // then read the input stream and parse the response.
@@ -142,4 +162,25 @@ public class OwnerLoginUtils {
         }
         return output.toString();
     }
+
+    private static String getQuery(List<ParamValues> params) throws UnsupportedEncodingException
+    {
+        StringBuilder result = new StringBuilder();
+        boolean first = true;
+
+        for (ParamValues pair : params)
+        {
+            if (first)
+                first = false;
+            else
+                result.append("&");
+
+            result.append(URLEncoder.encode(pair.getParametre(), "UTF-8"));
+            result.append("=");
+            result.append(URLEncoder.encode(pair.getValue(), "UTF-8"));
+        }
+
+        return result.toString();
+    }
+
 }
