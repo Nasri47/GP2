@@ -52,11 +52,11 @@
         <activity android:name=".Main2Activity" />
         <activity android:name=".FieldsList" />
         <activity android:name=".PlayerActivity" />
-        <activity android:name=".MapsActivity" />
         <activity android:name=".EditFieldInfo" />
         <activity android:name=".FieldSettings" />
         <activity android:name=".SuspendedField" />
-        <activity android:name=".ChangePass"></activity>
+        <activity android:name=".ChangePass" />
+        <activity android:name=".UpdatePics"></activity>
     </application>
 
 </manifest>

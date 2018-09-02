@@ -38,6 +38,7 @@ public class FieldFragment extends Fragment implements LoaderManager.LoaderCallb
     public static int fieldId ;
     private List<ResearvationsRequistsInfo> reserveList ;
     private View period ;
+    private Button changePic ;
     private List<PeriodTimes> periodList = new ArrayList<>();
     private List<String> daysList = new ArrayList<>();
     private List<String> historyList = new ArrayList<>();
@@ -69,6 +70,7 @@ public class FieldFragment extends Fragment implements LoaderManager.LoaderCallb
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_field, container, false);
 
+        changePic = (Button) rootView.findViewById(R.id.change_pic) ;
         USGS_REQUEST_URL = "http://192.168.43.172/api/getfieldbyid?field_id=" + LoginInfo.getFieldId() ;
         prfileContext = getActivity();
         periodRecycler = (RecyclerView) rootView.findViewById(R.id.timetable_recycle_view);
@@ -92,6 +94,14 @@ public class FieldFragment extends Fragment implements LoaderManager.LoaderCallb
         LoaderManager loaderManager = getLoaderManager();
         loaderManager.initLoader(FIELD_INFO_LOADER_ID, null,  this);
         TextView mUpdateDialog = rootView.findViewById(R.id.btnedit);
+        changePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent log = new Intent(getContext() , UpdatePics.class);
+                startActivity(log);
+            }
+        });
+
         mUpdateDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

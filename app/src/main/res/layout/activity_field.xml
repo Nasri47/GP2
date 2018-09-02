@@ -13,11 +13,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal">
         <include
             layout="@layout/images_layout"
             android:layout_width="match_parent"
             android:layout_height="250dp" />
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_margin="16dp"
+            android:clickable="true"
+            android:src="@mipmap/camera" />
+    </LinearLayout>
 
         <GridLayout
             android:layout_width="match_parent"
