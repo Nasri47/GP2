@@ -42,7 +42,7 @@ public class AddFieldUtils {
         FieldInformations fieldsList = new FieldInformations() ;
 
         try {
-
+            Log.i("tagconvertstr", "[fffffffffffffffffffffff"+fieldsListJSON+"]");
             JSONObject baseJsonResponse = new JSONObject(fieldsListJSON);
             JSONArray fieldsListArray = baseJsonResponse.getJSONArray("data");
             for (int i = 0; i < fieldsListArray.length(); i++) {
@@ -115,6 +115,8 @@ public class AddFieldUtils {
             params.add(new ParamValues("field_city", MainActivity.fLocate));
             params.add(new ParamValues("owner_phone", MainActivity.fPhone));
             params.add(new ParamValues("password", MainActivity.fPass));
+            params.add(new ParamValues("lat",String.valueOf(MainActivity.lat)));
+            params.add(new ParamValues("lng",String.valueOf(MainActivity.lng)));
             OutputStream os = urlConnection.getOutputStream();
             BufferedWriter writer = new BufferedWriter(
                     new OutputStreamWriter(os, "UTF-8"));

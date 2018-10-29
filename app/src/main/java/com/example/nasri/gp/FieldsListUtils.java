@@ -37,7 +37,7 @@ public final class FieldsListUtils {
         List<FieldItem> fieldsList = new ArrayList<>();
 
         try {
-
+            Log.i("tagconvertstr", "[fffffffffffffffffffffff"+fieldsListJSON+"]");
             JSONObject baseJsonResponse = new JSONObject(fieldsListJSON);
             JSONArray fieldsListArray = baseJsonResponse.getJSONArray("data");
             for (int i = 0; i < fieldsListArray.length(); i++) {
@@ -48,7 +48,10 @@ public final class FieldsListUtils {
                 String fieldName = currentEarthquake.getString("field_name");
                 String fieldCity = currentEarthquake.getString("field_city");
                 String fieldSize = currentEarthquake.getString("field_size");
-                FieldItem fields = new FieldItem(fieldId , fieldName , fieldCity , fieldSize);
+                String fieldImg = currentEarthquake.getString("img");
+                double lat = currentEarthquake.getDouble("field_lat");
+                double lang = currentEarthquake.getDouble("field_lng");
+                FieldItem fields = new FieldItem(fieldId , fieldName , fieldCity , fieldSize , fieldImg,lat,lang);
                 fieldsList.add(fields);
             }
         } catch (JSONException e) {

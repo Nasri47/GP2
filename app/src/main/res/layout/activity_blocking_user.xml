@@ -23,7 +23,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/user_name"
+            android:id="@+id/user_name_block"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Mohammed Ali"
@@ -32,7 +32,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/user_phone"
+            android:id="@+id/user_phone_block"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -49,8 +49,9 @@
 
 
             <EditText
-                android:id="@+id/block_resons"
+                android:id="@+id/user_block_resons"
                 style="@style/complaint"
+                android:backgroundTint="@color/colorPrimary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
@@ -67,6 +68,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="43dp"
                     android:text="Block"
+                    android:onClick="block"
                     android:textStyle="bold"
                     android:background="@drawable/button3"
                     android:textColor="@color/white"

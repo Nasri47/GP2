@@ -5,4 +5,12 @@ package com.example.nasri.gp;
  */
 
 public class ComplaintResponse {
+
+    public int response ;
+
+    public ComplaintResponse(int res){
+        response = res ;
+    }
+
+    public int getResponse(){return response;}
 }

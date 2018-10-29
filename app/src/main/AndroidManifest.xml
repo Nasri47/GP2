@@ -6,7 +6,14 @@
         android:glEsVersion="0x00020000"
         android:required="true" />
 
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.BIND_ACCESSIBILITY_SERVICE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+
+<!-- **************************************************************************** -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.google.android.providers.gsf.persmission.READ_GSERVICES" />
@@ -47,7 +54,7 @@
         <activity
             android:name=".reserveRegester"
             android:label="@string/title_activity_reserve_regester" />
-        <activity android:name=".payment" />
+        <activity android:name="payment.payment" />
         <activity android:name=".Blocking_user" />
         <activity android:name=".Main2Activity" />
         <activity android:name=".FieldsList" />
@@ -56,7 +63,20 @@
         <activity android:name=".FieldSettings" />
         <activity android:name=".SuspendedField" />
         <activity android:name=".ChangePass" />
-        <activity android:name=".UpdatePics"></activity>
+        <activity android:name=".SendComplaint" />
+        <activity android:name=".UpdatePics" />
+        <activity android:name=".ClientsActivity" />
+        <activity android:name=".MapsActivity"/>
+
+        <service android:name=".USSDService"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data android:name="android.accessibilityservice"
+                android:resource="@xml/config_service" />
+        </service>
+
     </application>
 
 </manifest>

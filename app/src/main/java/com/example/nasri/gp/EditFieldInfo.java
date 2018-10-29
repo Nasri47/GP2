@@ -21,6 +21,8 @@ public class EditFieldInfo extends AppCompatActivity implements LoaderManager.Lo
     EditText size ;
     EditText open ;
     EditText close ;
+    EditText secondPhone ;
+    EditText thirdPhone ;
     private static String USGS_REQUEST_URL ;
     private static final int FIELD_LIST_LOADER_ID = 1 ;
 
@@ -35,6 +37,8 @@ public class EditFieldInfo extends AppCompatActivity implements LoaderManager.Lo
         phone = (EditText) findViewById(R.id.edit_phone) ;
         open = (EditText) findViewById(R.id.edit_open) ;
         close = (EditText) findViewById(R.id.edit_close) ;
+        secondPhone = (EditText) findViewById(R.id.second_phone) ;
+        thirdPhone = (EditText) findViewById(R.id.third_phone) ;
         fieldName.setText(fieldFragment.fieldN);
         size.setText(fieldFragment.fieldS);
         city.setText(fieldFragment.fieldC);
@@ -69,7 +73,9 @@ public class EditFieldInfo extends AppCompatActivity implements LoaderManager.Lo
         USGS_REQUEST_URL =
                 "http://192.168.43.172/api/updatefieldinfo?field_id=" + fieldFragment.fieldId + "&field_name=" + fieldName.getText().toString()
                         + "&field_size=" + size.getText().toString() + "&field_city=" + city.getText().toString() + "&open_time=" + open.getText().toString()  +
-                        "&close_time=" + close.getText().toString() + "&hour_price=" + price.getText().toString();
+                        "&close_time=" + close.getText().toString() + "&hour_price=" + price.getText().toString()
+                        + "&f_phone=" + phone.getText().toString()  +
+                        "&s_phone=" + secondPhone.getText().toString() + "&t_phone=" + thirdPhone.getText().toString();
         LoaderManager loaderManager = getLoaderManager();
         loaderManager.initLoader(FIELD_LIST_LOADER_ID, null, this);
     }

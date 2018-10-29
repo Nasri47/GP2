@@ -39,10 +39,12 @@ public class FieldInfoUtils {
 
             JSONObject baseJsonResponse = new JSONObject(ownerJSON);
             List<ResearvationsRequistsInfo> reserveInfo = new ArrayList<>();
+            List<String> imagesList = new ArrayList<>();
             ResearvationsRequistsInfo reservs ;
             if (!baseJsonResponse.optBoolean("error")) {
                 JSONArray reservesList = baseJsonResponse.getJSONArray("reserves");
                 JSONArray ownerInfoList = baseJsonResponse.getJSONArray("data");
+                JSONArray images = baseJsonResponse.getJSONArray("images");
                 for (int i = 0; i < ownerInfoList.length(); i++) {
                     JSONObject ownerInfoListJSONObject = ownerInfoList.getJSONObject(i);
                     int fieldId = ownerInfoListJSONObject.getInt("id");
@@ -53,6 +55,8 @@ public class FieldInfoUtils {
                     String fieldSize = ownerInfoListJSONObject.getString("field_size");
                     String hourPrice = ownerInfoListJSONObject.getString("field_hour_price");
                     String phone = ownerInfoListJSONObject.getString("owner_phone");
+                    String sPhone = ownerInfoListJSONObject.getString("s_phone") ;
+                    String tPhone = ownerInfoListJSONObject.getString("t_phone") ;
                     String openTime = ownerInfoListJSONObject.getString("open_time") ;
                     String closeTime = ownerInfoListJSONObject.getString("close_time") ;
                     String resons = ownerInfoListJSONObject.getString("suspend_resons");
@@ -63,16 +67,23 @@ public class FieldInfoUtils {
                         int reserveId = reservesObject.getInt("id");
                         String reserveStart = reservesObject.getString("reserve_frome");
                         String reserveEnd = reservesObject.getString("reserve_to");
+                        String reserveDate = reservesObject.getString("reserve_date");
                         String userName = reservesObject.getString("user_name");
                         String userPhone = reservesObject.getString("user_phone");
+
                         reservs = new ResearvationsRequistsInfo(reserveId , reserveStart , reserveEnd ,
-                                                                userName , userPhone);
+                                                                userName , userPhone , reserveDate);
                         reserveInfo.add(reservs);
 
                     }
+                    for (int x = 0; x < images.length(); x++) {
+                        JSONObject reservesObject = images.getJSONObject(x);
+                        String img = reservesObject.getString("img");
+                        imagesList.add(img);
+                    }
                     fieldInfo = new FieldInformations(fieldId , fieldName , ownerName , fieldCity ,
-                            fieldSize , hourPrice , phone , openTime ,
-                            closeTime , reserveInfo , lat , lng , suspendState , resons);
+                            fieldSize , hourPrice , phone , sPhone , tPhone , openTime ,
+                            closeTime , reserveInfo , lat , lng , suspendState , resons , imagesList);
                 }
 
             }

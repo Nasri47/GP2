@@ -12,8 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -22,6 +24,9 @@ import android.widget.Toast;
 public class Main2Activity extends AppCompatActivity {
 
     public static Switch switchAB;
+    FieldFragment someFragment;
+    ImageButton left ;
+    ImageButton right ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +44,9 @@ public class Main2Activity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.complaint_button, menu);
         menu.add(1 , 1 , 1 , "Settings");
-        menu.add(2 , 2 , 2 , "Contact us");
-        menu.add(3 , 3 , 3 , "logout");
+        menu.add(2 , 2 , 2 , "My reserves");
+        menu.add(3 , 3 , 3 , "Contact us");
+        menu.add(4 , 4 , 4 , "Logout");
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -53,9 +59,10 @@ public class Main2Activity extends AppCompatActivity {
             Intent log = new Intent(Main2Activity.this, FieldSettings.class);
             startActivity(log);
         }else if (id == 2){
-
-        }
-        else if (id == 3){
+            Intent log = new Intent(Main2Activity.this, ClientsActivity.class);
+            startActivity(log);
+        }else if (id == 3){}
+        else if (id == 4){
             openDialog() ;
         }
         return super.onOptionsItemSelected(item);
@@ -113,4 +120,5 @@ public class Main2Activity extends AppCompatActivity {
         cancelBT.setTextColor(Color.RED);
         cancelBT.setLayoutParams(negBtnLP);
     }
+
 }

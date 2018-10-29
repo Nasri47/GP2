@@ -20,7 +20,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -33,17 +33,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="8dp"
                 android:backgroundTint="@color/colorPrimaryDark"
-                android:drawablePadding="16dp"
                 android:hint="owner name"
                 android:inputType="text" />
+
+            <TextView
+                android:id="@+id/owner_only_char"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:visibility="gone"
+                android:text="Only characters"/>
+            <TextView
+                android:id="@+id/owner_no_space"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:visibility="gone"
+                android:text="No spaces allowed"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -57,40 +70,60 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:backgroundTint="@color/colorPrimaryDark"
-                android:layout_marginTop="8dp"
-                android:drawablePadding="16dp"
                 android:hint="Name of The Field"
                 android:inputType="text" />
+
+            <TextView
+                android:id="@+id/field_only_char"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:visibility="gone"
+                android:text="Only characters"/>
+            <TextView
+                android:id="@+id/field_no_space"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:visibility="gone"
+                android:text="No spaces allowed"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
+            android:orientation="vertical">
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/location_btn"
+    android:text="getlocation" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:drawableStart="@drawable/sharp_location_on_black" />
 
-            <EditText
+
+            <Spinner
                 android:id="@+id/field_location"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="8dp"
-                android:backgroundTint="@color/colorPrimaryDark"
-                android:layout_weight="1"
-                android:drawablePadding="16dp"
-                android:hint="Location of The Field"
-                android:inputType="text" />
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:id="@+id/select_field_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:visibility="gone"
+                android:text="Chose city"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -102,18 +135,38 @@
                 android:id="@+id/field_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="8dp"
                 android:backgroundTint="@color/colorPrimaryDark"
-                android:drawablePadding="16dp"
                 android:hint="Phone"
+                android:maxLength="10"
                 android:inputType="phone" />
+
+            <TextView
+                android:id="@+id/phone_not_valid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:visibility="gone"
+                android:text="Not valid phone number"/>
+            <TextView
+                android:id="@+id/phone_ten"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:visibility="gone"
+                android:text="Phone number must be 10 numbers"/>
+            <TextView
+                android:id="@+id/phone_space"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:visibility="gone"
+                android:text="Spaces not allowed"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -125,18 +178,45 @@
                 android:id="@+id/password_field"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="8dp"
                 android:backgroundTint="@color/colorPrimaryDark"
-                android:drawablePadding="16dp"
                 android:hint="Password"
                 android:inputType="textPassword" />
+
+            <TextView
+                android:id="@+id/password_lower_case"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:visibility="gone"
+                android:text="Password must contain lower case character"/>
+
+            <TextView
+                android:id="@+id/password_upper_case"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:visibility="gone"
+                android:text="Password must contain upper case characters"/>
+            <TextView
+                android:id="@+id/password_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:visibility="gone"
+                android:text="Password must contain numbers"/>
+            <TextView
+                android:id="@+id/password_length"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:visibility="gone"
+                android:text="Password must be at least 8 characters"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -145,14 +225,20 @@
                 android:drawableStart="@drawable/sharp_lock_black" />
 
             <EditText
+                android:id="@+id/regest_conf_pass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="8dp"
-                android:drawablePadding="16dp"
                 android:backgroundTint="@color/colorPrimaryDark"
                 android:hint="Confirm Password"
                 android:inputType="textPassword" />
+
+            <TextView
+                android:id="@+id/password_not_match"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:visibility="gone"
+                android:text="Password not matched"/>
         </LinearLayout>
 
         <Button

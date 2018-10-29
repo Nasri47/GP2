@@ -12,6 +12,8 @@ import java.util.List;
 public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.MyViewHolder> {
     private List<ResearvationsRequistsInfo> listDetails;
     private static Context context;
+    private ReservationFragment reservationFragment ;
+    private ReserveResponse reserveResponse ;
 
 
     public ReservationAdapter(List<ResearvationsRequistsInfo> listDetails) {
@@ -36,6 +38,37 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
         holder.userName.setText(list.getUserName());
         holder.phoneNumber.setText(list.getUserPhone());
         holder.message.setText("Want to reserve your field from "+list.getReserveStart() + " to " + list.getReserveEnd());
+
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reservationFragment = new ReservationFragment();
+                reservationFragment.reserveFlag = true ;
+                reserveResponse = new ReserveResponse(listDetails.get(position).getReservId() , 0);
+                listDetails.remove(position);
+                notifyDataSetChanged();
+            }
+        });
+        holder.decline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reservationFragment = new ReservationFragment();
+                reservationFragment.reserveFlag = true ;
+                reserveResponse = new ReserveResponse(listDetails.get(position).getReservId() , 0);
+                listDetails.remove(position);
+                notifyDataSetChanged();
+            }
+        });
+        holder.accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reservationFragment = new ReservationFragment();
+                reservationFragment.reserveFlag = true ;
+                reserveResponse = new ReserveResponse(listDetails.get(position).getReservId() , 1);
+                listDetails.remove(position);
+                notifyDataSetChanged();
+            }
+        });
     }
 
     @Override

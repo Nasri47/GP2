@@ -22,27 +22,26 @@ import java.util.List;
  * Created by Bors on 9/3/2018.
  */
 
-public class DeleteComlaintUtils {
+public class ReseveResponseUtils {
 
     private static final String LOG_TAG = FieldInfoUtils.class.getSimpleName();
-    private DeleteComlaintUtils() {
+    private ReseveResponseUtils() {
     }
 
-    private static List<ComplaintsInfo> extractFeatureFromJson(String ownerJSON) {
-        List<ComplaintsInfo> compResponse = new ArrayList<>();
+    private static List<ResearvationsRequistsInfo> extractFeatureFromJson(String ownerJSON) {
+        List<ResearvationsRequistsInfo> compResponse = new ArrayList<>();
         if (TextUtils.isEmpty(ownerJSON)) {
             return null;
         }
 
         try {
-            System.out.println("ffffffffffffffffffffffff ");
             JSONObject baseJsonResponse = new JSONObject(ownerJSON);
             if (!baseJsonResponse.optBoolean("error")) {
                 JSONArray complaintList = baseJsonResponse.getJSONArray("data");
                 for (int i = 0; i < complaintList.length(); i++) {
                     JSONObject compInfoListJSONObject = complaintList.getJSONObject(i);
                     int response = compInfoListJSONObject.getInt("response");
-                    ComplaintsInfo comp = new ComplaintsInfo(response);
+                    ResearvationsRequistsInfo comp = new ResearvationsRequistsInfo(response);
                     compResponse.add(comp);
                 }
             }
@@ -53,7 +52,7 @@ public class DeleteComlaintUtils {
         return compResponse;
     }
 
-    public static List<ComplaintsInfo> fetchfieldsData(String requestUrl) {
+    public static List<ResearvationsRequistsInfo> fetchfieldsData(String requestUrl) {
         // Create URL object
         URL url = createUrl(requestUrl);
 
@@ -67,7 +66,7 @@ public class DeleteComlaintUtils {
         }
 
         // Extract relevant fields from the JSON response and create a list of {@link Earthquake}s
-        List<ComplaintsInfo> response = extractFeatureFromJson(jsonResponse);
+        List<ResearvationsRequistsInfo> response = extractFeatureFromJson(jsonResponse);
 
         // Return the list of {@link Earthquake}s
         return response;

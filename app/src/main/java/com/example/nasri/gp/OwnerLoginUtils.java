@@ -42,7 +42,7 @@ public class OwnerLoginUtils {
 
         try {
 
-            JSONObject baseJsonResponse = new JSONObject(ownerJSON);
+           JSONObject baseJsonResponse = new JSONObject(ownerJSON);
             if (!baseJsonResponse.optBoolean("error")) {
                 JSONArray ownerInfoList = baseJsonResponse.getJSONArray("data");
                 for (int i = 0; i < ownerInfoList.length(); i++) {

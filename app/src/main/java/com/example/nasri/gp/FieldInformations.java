@@ -13,6 +13,8 @@ public class FieldInformations {
     String fieldCity ;
     String fieldSize ;
     String hourePrice ;
+    String sPone ;
+    String tPhone ;
     String ownerPhone ;
     String openTime ;
     String closeTime ;
@@ -20,20 +22,23 @@ public class FieldInformations {
     long fieldLat ;
     long fieldLng ;
     List<ResearvationsRequistsInfo> reserveInfo = new ArrayList<>();
+    List<String> images = new ArrayList<>();
     int fieldId ;
     int response ;
     int suspendState ;
 
     public FieldInformations(int id , String fName , String oName , String fCity ,
-                             String fSize , String price , String oPhone ,
+                             String fSize , String price , String oPhone , String sPhone , String tPhone ,
                              String open , String close , List<ResearvationsRequistsInfo> reserve ,
-                             long lat , long lng , int suspend , String resons){
+                             long lat , long lng , int suspend , String resons , List<String> img){
         fieldName = fName ;
         ownerName = oName ;
         fieldCity = fCity ;
         fieldSize = fSize ;
         hourePrice = price ;
         ownerPhone = oPhone ;
+        this.sPone = sPhone ;
+        this.tPhone = tPhone ;
         openTime = open ;
         closeTime = close ;
         reserveInfo = reserve ;
@@ -42,6 +47,7 @@ public class FieldInformations {
         fieldLng = lng ;
         fieldId = id ;
         suspendState = suspend ;
+        images = img ;
     }
 
     public FieldInformations(){
@@ -61,6 +67,10 @@ public class FieldInformations {
         suspendResons = resons ;
     }
 
+    public FieldInformations(String resons){
+        suspendResons = resons ;
+    }
+
 
     public String getFieldName(){return fieldName;}
     public String getOwnerName(){return ownerName;}
@@ -76,5 +86,8 @@ public class FieldInformations {
     public long getFieldLat(){return fieldLat;}
     public long getFieldLng(){return fieldLng;}
     public int getSuspendState(){return suspendState;}
+    public List<String> getImages(){return images;}
     public String getSuspendResons(){return suspendResons;}
+    public String getsPone(){return  sPone;}
+    public String gettPhone(){return tPhone;}
 }

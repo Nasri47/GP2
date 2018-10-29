@@ -19,6 +19,7 @@ public class TimetableAdabter extends RecyclerView.Adapter<TimetableAdabter.MyVi
     private int selected = 0 ;
     private Button reserveButton ;
     private Context context;
+    int count = 0 ;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public Button title, dd, genre;
@@ -48,6 +49,7 @@ public class TimetableAdabter extends RecyclerView.Adapter<TimetableAdabter.MyVi
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         PeriodTimes period = periodTimes.get(position);
         holder.title.setText(period.getResearveTime());
+        holder.title.setBackground(ContextCompat.getDrawable(context, R.drawable.period_selector));
         if (period.getStateColor() == 1){
             holder.title.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -69,6 +71,7 @@ public class TimetableAdabter extends RecyclerView.Adapter<TimetableAdabter.MyVi
                 }
             });
         }else if (period.getStateColor() == 2){
+            count++;
                 holder.title.setBackground(ContextCompat.getDrawable(context, R.drawable.reservedperiod));
                 holder.title.setClickable(false);
         }

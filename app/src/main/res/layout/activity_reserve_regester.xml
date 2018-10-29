@@ -39,50 +39,51 @@
             android:orientation="vertical"
             android:background="@drawable/register_card">
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp">
-
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="16dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/sharp_account_circle_black" />
 
-                    <AutoCompleteTextView
-                        android:id="@+id/email"
+
+                    <EditText
+                        android:id="@+id/user_regist_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/user_name"
-                        android:inputType="textEmailAddress"
+                        android:layout_marginBottom="10dp"
                         android:backgroundTint="@color/white"
-                        android:layout_marginTop="8dp"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:ems="10"
-                        android:drawablePadding="16dp"/>
+                        android:hint="user name"
+                        android:inputType="text" />
+
+                    <TextView
+                        android:id="@+id/user_only_char"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/red"
+                        android:visibility="gone"
+                        android:text="Only characters"/>
+                    <TextView
+                        android:id="@+id/user_no_space"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/red"
+                        android:visibility="gone"
+                        android:text="No spaces allowed"/>
                 </LinearLayout>
 
-
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_margin="16dp"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -90,7 +91,7 @@
                         android:drawableStart="@drawable/baseline_phone_black" />
 
                     <EditText
-                        android:id="@+id/password"
+                        android:id="@+id/user_regist_phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:imeActionId="6"
@@ -98,16 +99,38 @@
                         android:inputType="number"
                         android:backgroundTint="@color/white"
                         android:layout_marginTop="8dp"
+                        android:maxLength="10"
                         android:maxLines="1"
                         android:hint="@string/phone_number"
                         android:singleLine="true"
                         android:ems="10"
                         android:drawablePadding="16dp"/>
+
+                    <TextView
+                        android:id="@+id/user_phone_not_valid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/red"
+                        android:visibility="gone"
+                        android:text="Not valid phone number"/>
+                    <TextView
+                        android:id="@+id/user_phone_ten"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/red"
+                        android:visibility="gone"
+                        android:text="Phone number must be 10 numbers"/>
+                    <TextView
+                        android:id="@+id/user_phone_space"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/red"
+                        android:visibility="gone"
+                        android:text="Spaces not allowed"/>
                 </LinearLayout>
 
 
 
-            </android.support.design.widget.TextInputLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -116,6 +139,7 @@
                     android:id="@+id/email_sign_in_button"
                     android:layout_width="wrap_content"
                     android:layout_height="43dp"
+                    android:onClick="onDone"
                     android:layout_marginTop="16dp"
                     android:layout_marginRight="16dp"
                     android:layout_marginBottom="16dp"

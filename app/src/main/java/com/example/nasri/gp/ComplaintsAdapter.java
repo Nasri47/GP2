@@ -1,14 +1,19 @@
 package com.example.nasri.gp;
 
+import android.app.LoaderManager;
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import java.util.List;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,7 +24,8 @@ public class ComplaintsAdapter extends RecyclerView.Adapter<ComplaintsAdapter.My
 
     private List<ComplaintsInfo> complaintsInfos;
     private static Context context;
-
+    private DeleteComlaint deleteComlaint ;
+    private ComplaintsFragment complaintsFragment ;
     public ComplaintsAdapter(List<ComplaintsInfo> listDetails) {
         this.complaintsInfos = listDetails;
     }
@@ -37,17 +43,44 @@ public class ComplaintsAdapter extends RecyclerView.Adapter<ComplaintsAdapter.My
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        final ComplaintsInfo list = complaintsInfos.get(position);
+    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
+        holder.userName.setText(complaintsInfos.get(position).getUserName());
+        holder.phoneNumber.setText(complaintsInfos.get(position).getUserPhone());
+        holder.message.setText(complaintsInfos.get(position).getMasage());
 
-        holder.userName.setText(list.getUserName());
-        holder.phoneNumber.setText(list.getUserPhone());
-        holder.message.setText(list.getMasage());
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                complaintsFragment = new ComplaintsFragment();
+                complaintsFragment.deletFlag = true ;
+                deleteComlaint = new DeleteComlaint(complaintsInfos.get(position).getComplaintId());
+                complaintsInfos.remove(position);
+                    notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
     public int getItemCount() {return complaintsInfos.size();}
+/*
+    @NonNull
+    @Override
+    public Loader<ArrayList> onCreateLoader(int id, @Nullable Bundle args) {
+        return new DeleteComplaintLoader(context , USGS_REQUEST_URL);
+    }
 
+    @Override
+    public void onLoadFinished(@NonNull Loader<ArrayList> loader, ArrayList data) {
+        Toast.makeText(context , "Complaint deleted", Toast.LENGTH_SHORT)
+                .show();
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<ArrayList> loader) {
+
+    }
+
+*/
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView userName, phoneNumber, message, accept, decline, delete;
 
@@ -64,4 +97,12 @@ public class ComplaintsAdapter extends RecyclerView.Adapter<ComplaintsAdapter.My
             decline.setVisibility(View.GONE);
         }
     }
+/*
+    public void startLoader(){
+        complaintsFragment = new ComplaintsFragment();
+        android.support.v4.app.LoaderManager loaderManager = complaintsFragment.loaderManager;
+        loaderManager.initLoader(DELETE_COMPLAINT_LOADER_ID, null,  this);
+        DELETE_COMPLAINT_LOADER_ID++;
+    }
+    */
 }

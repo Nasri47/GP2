@@ -46,7 +46,8 @@ public class ResearveRequistsUtils {
                     String userPhone = reserveListJSONObject.getString("user_phone");
                     String start = reserveListJSONObject.getString("reserve_frome");
                     String end = reserveListJSONObject.getString("reserve_to");
-                    ResearvationsRequistsInfo reserveObj = new ResearvationsRequistsInfo(fieldId , start , end , userName , userPhone);
+                    String reDate = reserveListJSONObject.getString("reserve_to");
+                    ResearvationsRequistsInfo reserveObj = new ResearvationsRequistsInfo(fieldId , start , end , userName , userPhone , reDate);
                     reserveInfo.add(reserveObj);
                 }
             }

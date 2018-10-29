@@ -21,6 +21,8 @@ import java.util.List;
 
 public class ReservationFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<ResearvationsRequistsInfo>> {
     public static Context reserveConte;
+    public static LoaderManager reserveLoader ;
+    public static boolean reserveFlag = false ;
     LinearLayout emptyLayout ;
     TextView emptyText ;
     View loadingIndicator ;
@@ -31,6 +33,7 @@ public class ReservationFragment extends Fragment implements LoaderManager.Loade
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.recycler_view, container, false);
         reserveConte = getContext() ;
+        reserveLoader = getLoaderManager();
         emptyLayout = (LinearLayout)  rootView.findViewById(R.id.empty_reserve);
         emptyText = (TextView) rootView.findViewById(R.id.empty_text_reserve);
         loadingIndicator = rootView.findViewById(R.id.loading_indicator);
@@ -54,15 +57,19 @@ public class ReservationFragment extends Fragment implements LoaderManager.Loade
 
     @Override
     public void onLoadFinished(@NonNull Loader<List<ResearvationsRequistsInfo>> loader, List<ResearvationsRequistsInfo> data) {
-        loadingIndicator.setVisibility(View.GONE);
-        reservationDetails.clear();
-        if(data != null && !data.isEmpty()){
-            reservationDetails.addAll(data);
-        }else{
-            if (reservationDetails.isEmpty()) {
-                emptyLayout.setVisibility(View.VISIBLE);
-                emptyText.setText("Nothing to show !");
+        if (!reserveFlag){
+            loadingIndicator.setVisibility(View.GONE);
+            reservationDetails.clear();
+            if(data != null && !data.isEmpty()){
+                reservationDetails.addAll(data);
+            }else{
+                if (reservationDetails.isEmpty()) {
+                    emptyLayout.setVisibility(View.VISIBLE);
+                    emptyText.setText("Nothing to show !");
+                }
             }
+        }else{
+            reserveFlag = false ;
         }
     }
 

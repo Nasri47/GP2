@@ -1,8 +1,9 @@
-package com.example.nasri.gp;
+package payment;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.example.nasri.gp.PlayerActivity;
+import com.example.nasri.gp.R;
+import com.example.nasri.gp.USSDService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +47,19 @@ public class payment extends AppCompatActivity {
         perError = (LinearLayout) findViewById(R.id.permission_error);
         ussdRes = (TextView) findViewById(R.id.ussd_response);
 
-        //ussdRes.setText(USSDService.perResponse);
+        if (USSDService.perResponse.equals("")){
+            ussdRes.setText("proccess completed successfully");
+
+        }else if (USSDService.perResponse.equals("")){
+            ussdRes.setText("proccess completed successfully");
+
+        }else if (USSDService.perResponse.equals("")){
+            ussdRes.setText("proccess completed successfully");
+
+        }else{
+            ussdRes.setTextColor(Color.RED);
+            ussdRes.setText("proccess not complete , please try again !");
+        }
 
         List<String> list = new ArrayList<String>();
         //Log.i("tagconvertstr", "["+new String(response.data)+"]");
@@ -160,28 +177,30 @@ public class payment extends AppCompatActivity {
     }
 
     public void payment(View v){
-        /*
         startService(new Intent(payment.this, USSDService.class));
+        /*
         if ( ContextCompat.checkSelfPermission(payment.this, Manifest.permission.BIND_ACCESSIBILITY_SERVICE)
                 != PackageManager.PERMISSION_GRANTED) {
+            System.out.println("fffffffffffffffffffffffffff2");
             perFlag = false ;
 
         } else {
+            System.out.println("fffffffffffffffffffffffffff3");
             perFlag = true ;
         }
         */
-        if (perFlag){
+        if (!perFlag){
             String call = "" ;
             if (sudaniFlag){
                 perError.setVisibility(View.GONE);
                 call = "*303*50*" + sudaniNumber + "*0000" ;
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:" + call.endsWith("#")));
+                intent.setData(Uri.parse("tel:" +  Uri.encode("#")));
                 startActivity(intent);
             }else if (mtnFlag){
                 call = "*121*" + mtnNumber + "*50*00000" ;
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:" + call.endsWith("#")));
+                intent.setData(Uri.parse("tel:" + call + Uri.encode("#")));
                 startActivity(intent);
             }else if (zainFlag){
                 if(TextUtils.isEmpty(zainCode.getText())) {
@@ -189,7 +208,7 @@ public class payment extends AppCompatActivity {
                 }else {
                     call = "*200*" + zainCode.getText().toString() + "*50*" + zainNumber + "*" + zainNumber;
                     Intent intent = new Intent(Intent.ACTION_DIAL);
-                    intent.setData(Uri.parse("tel:" + call.endsWith("#")));
+                    intent.setData(Uri.parse("tel:" + call + Uri.encode("#")));
                     startActivity(intent);
                 }
             }

@@ -33,25 +33,23 @@ public class ComplaintUtils {
         if (TextUtils.isEmpty(ownerJSON)) {
             return null;
         }
-
-        try {
-
-            JSONObject baseJsonResponse = new JSONObject(ownerJSON);
-            if (!baseJsonResponse.optBoolean("error")) {
-                JSONArray complaintsList = baseJsonResponse.getJSONArray("data");
-                for (int i = 0; i < complaintsList.length(); i++) {
-                    JSONObject reserveListJSONObject = complaintsList.getJSONObject(i);
-                    int complaintId = reserveListJSONObject.getInt("id");
-                    String userName = reserveListJSONObject.getString("user_name");
-                    String userPhone = reserveListJSONObject.getString("user_phone");
-                    String complaint = reserveListJSONObject.getString("complaint");
-                    ComplaintsInfo reserveObj = new ComplaintsInfo(complaintId , userName , userPhone , complaint);
-                    complaintsInfo.add(reserveObj);
+         try {
+                JSONObject baseJsonResponse = new JSONObject(ownerJSON);
+                if (!baseJsonResponse.optBoolean("error")) {
+                    JSONArray complaintsList = baseJsonResponse.getJSONArray("data");
+                    for (int i = 0; i < complaintsList.length(); i++) {
+                        JSONObject reserveListJSONObject = complaintsList.getJSONObject(i);
+                        int complaintId = reserveListJSONObject.getInt("id");
+                        String userName = reserveListJSONObject.getString("user_name");
+                        String userPhone = reserveListJSONObject.getString("user_phone");
+                        String complaint = reserveListJSONObject.getString("complaint");
+                        ComplaintsInfo reserveObj = new ComplaintsInfo(complaintId , userName , userPhone , complaint);
+                        complaintsInfo.add(reserveObj);
+                    }
                 }
-            }
-        } catch (JSONException e) {
+            } catch (JSONException e) {
 
-            Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
+                Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
         }
         return complaintsInfo;
     }

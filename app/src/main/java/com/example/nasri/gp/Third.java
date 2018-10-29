@@ -22,7 +22,7 @@ public class Third extends AppCompatActivity implements LoaderManager.LoaderCall
     int respons ;
     static String blockResons ;
     boolean flag = false ;
-    private static int LOGIN_LOADER_ID = 1 ;
+    private int LOGIN_LOADER_ID = 1 ;
     private String USGS_REQUEST_URL ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
