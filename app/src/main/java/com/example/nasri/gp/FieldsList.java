@@ -52,8 +52,7 @@ public class FieldsList extends AppCompatActivity implements LoaderManager.Loade
     private FieldsListAdapter fieldsAdapter;
     private Toolbar myToolbar ;
     SearchView fieldSearchView;
-    private static final String USGS_REQUEST_URL =
-            "http://192.168.43.172/api/fieldslist/";
+    private static final String USGS_REQUEST_URL = "http://192.168.43.172/api/fieldslist/";
     private static final int FIELD_LIST_LOADER_ID = 1 ;
     private ArrayList<Double> latLang = new ArrayList<>();
     private static final String LOG_TAG = FieldsList.class.getName();
