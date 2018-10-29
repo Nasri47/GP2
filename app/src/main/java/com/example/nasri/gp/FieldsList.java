@@ -58,7 +58,7 @@ public class FieldsList extends AppCompatActivity implements LoaderManager.Loade
     private static final String LOG_TAG = FieldsList.class.getName();
     LocationManager mLocationManager;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
-   // double lat,lang ;
+    double lat,lang ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,49 +94,49 @@ public class FieldsList extends AppCompatActivity implements LoaderManager.Loade
         btnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-//                if (ContextCompat.checkSelfPermission(FieldsList.this, Manifest.permission.ACCESS_FINE_LOCATION)
-//                        != PackageManager.PERMISSION_GRANTED) {
-//                    // Permission to access the location is missing.
-//                    PermissionUtils.requestPermission(FieldsList.this, LOCATION_PERMISSION_REQUEST_CODE,
-//                            Manifest.permission.ACCESS_FINE_LOCATION, true);
-//                }
-//                else
-//                    mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000,
-//                            10, mLocationListener);
+                mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+                if (ContextCompat.checkSelfPermission(FieldsList.this, Manifest.permission.ACCESS_FINE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    // Permission to access the location is missing.
+                    PermissionUtils.requestPermission(FieldsList.this, LOCATION_PERMISSION_REQUEST_CODE,
+                            Manifest.permission.ACCESS_FINE_LOCATION, true);
+                }
+                else
+                    mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000,
+                            10, mLocationListener);
                 Intent i = new Intent(FieldsList.this,MapsActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("arraylist", (Serializable) fieldItems);
                 i.putExtra("bundle",bundle);
-//                i.putExtra("lat",lat);
-//                i.putExtra("lang",lang);
+                i.putExtra("lat",lat);
+                i.putExtra("lang",lang);
                 startActivity(i);
             }
         });
     }
-//    private final LocationListener mLocationListener = new LocationListener() {
-//        @Override
-//        public void onLocationChanged(final Location location) {
-////            Toast.makeText(MainActivity.this,String.valueOf(location.getLatitude()) + "ASD" + String.valueOf(location.getLongitude()),Toast.LENGTH_SHORT).show();
-//            lat = location.getLatitude();
-//            lang = location.getLongitude();
-//        }
-//
-//        @Override
-//        public void onStatusChanged(String s, int i, Bundle bundle) {
-//
-//        }
-//
-//        @Override
-//        public void onProviderEnabled(String s) {
-//
-//        }
-//
-//        @Override
-//        public void onProviderDisabled(String s) {
-//
-//        }
-//    };
+    private final LocationListener mLocationListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(final Location location) {
+//            Toast.makeText(MainActivity.this,String.valueOf(location.getLatitude()) + "ASD" + String.valueOf(location.getLongitude()),Toast.LENGTH_SHORT).show();
+            lat = location.getLatitude();
+            lang = location.getLongitude();
+        }
+
+        @Override
+        public void onStatusChanged(String s, int i, Bundle bundle) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String s) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String s) {
+
+        }
+    };
 
 
     @Override

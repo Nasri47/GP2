@@ -38,6 +38,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         Bundle bundle = intent.getBundleExtra("bundle");
         marker = (ArrayList<FieldItem>) bundle.getSerializable("arraylist");
 
+
     }
 
     @Override
